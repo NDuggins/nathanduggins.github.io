@@ -1,2 +1,2 @@
-# nathanduggins.github.io
+# nduggins.github.io
 Online GIS Portfolio
