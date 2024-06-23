@@ -111,7 +111,7 @@ p {
     header {
         flex-direction: column;
         align-items: center;
-        padding: 1rem;
+        padding: 0.5rem;
         height: auto;
         left: 0;
         right: 0;
