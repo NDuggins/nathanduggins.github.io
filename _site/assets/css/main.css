@@ -2,9 +2,9 @@ body {
     font-family: 'Helvetica', sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding-top: 60px; /* Adjust this value to match your header height */
+    padding: 0;
     background-color: #333;
-    color: #333;
+    color: white;
 }
 
 .wrapper {
@@ -24,20 +24,21 @@ body {
     flex-direction: column;
     position: relative;
     width: 100%;
+    padding-top: 60px; /* Adjust this value to match your header height */
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 1rem;
+    padding: 1rem;
     background-color: #333;
     color: white;
     position: fixed;
     top: 0;
     left: 100px; /* Width of left sidebar */
     right: 100px; /* Width of right sidebar */
-    height: 120px; /* Adjust as needed */
+    height: 60px; /* Adjust as needed */
     z-index: 1000;
     box-sizing: border-box;
 }
@@ -91,37 +92,20 @@ p {
 }
 
 @media (max-width: 768px) {
+    body {
+        padding-top: 0;
+    }
+
     .wrapper {
         flex-direction: column;
     }
 
     .left-sidebar, .right-sidebar {
-        width: 100%;
-        height: auto;
-    }
-
-    header {
-        left: 0;
-        right: 0;
-    }
-
-    body {
-        padding-top: 120px; /* Adjust for mobile header height */
-    }
-
-    .two-column-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) and (orientation: portrait) {
-    .left-sidebar, .right-sidebar {
         display: none;
     }
 
     .main-content {
-        width: 100%;
-        margin-top: 120px; /* Adjust this value to match the body padding-top */
+        padding-top: 120px; /* Adjust for mobile header height */
     }
 
     header {
@@ -129,6 +113,8 @@ p {
         align-items: center;
         padding: 1rem;
         height: auto;
+        left: 0;
+        right: 0;
         width: 100%;
     }
 
@@ -140,9 +126,17 @@ p {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
     }
 
     nav a {
         margin: 0.5rem 0;
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem 0;
+    }
+
+    .two-column-layout {
+        grid-template-columns: 1fr;
     }
 }
