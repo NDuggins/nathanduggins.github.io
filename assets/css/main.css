@@ -2,8 +2,7 @@ body {
     font-family: 'Helvetica', sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding-top: 4rem
-    padding: 0;
+    padding-top: 60px; /* Adjust this value to match your header height */
     background-color: #333;
     color: #333;
 }
@@ -23,9 +22,8 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    margin-top: 4rem;
     position: relative;
-    width: 100%
+    width: 100%;
 }
 
 header {
@@ -35,12 +33,12 @@ header {
     padding: 1.5rem 1rem;
     background-color: #333;
     color: white;
-    position:fixed;
+    position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
+    left: 100px; /* Width of left sidebar */
+    right: 100px; /* Width of right sidebar */
+    height: 120px; /* Adjust as needed */
     z-index: 1000;
-    width: 100%;
     box-sizing: border-box;
 }
 
@@ -83,13 +81,34 @@ main {
     grid-gap: 2rem;
 }
 
-@media (min-width: 769px) {
-    .two-column-layout {
-        grid-template-columns: 2fr 1fr;
-    }
+h1, h2 {
+    color: white;
+    margin: 0 0 1rem;
+}
+
+p {
+    margin: 1rem 0;
 }
 
 @media (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .left-sidebar, .right-sidebar {
+        width: 100%;
+        height: auto;
+    }
+
+    header {
+        left: 0;
+        right: 0;
+    }
+
+    body {
+        padding-top: 120px; /* Adjust for mobile header height */
+    }
+
     .two-column-layout {
         grid-template-columns: 1fr;
     }
@@ -102,19 +121,28 @@ main {
 
     .main-content {
         width: 100%;
+        margin-top: 120px; /* Adjust this value to match the body padding-top */
     }
 
     header {
-        left: 0;
-        right: 0;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        height: auto;
+        width: 100%;
     }
-}
 
-h1, h2 {
-    color: white;
-    margin: 0 0 1rem;
-}
+    header .logo {
+        margin-bottom: 1rem;
+    }
 
-p {
-    margin: 1rem 0;
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a {
+        margin: 0.5rem 0;
+    }
 }
