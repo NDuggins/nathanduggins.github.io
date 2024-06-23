@@ -1,0 +1,35 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    background-color: #333;
+    color: white;
+}
+
+header .logo h1 {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 24px;
+    font-weight:300;
+    color: white;
+    text-decoration: none;
+    margin: 0;
+}
+
+nav a {
+    font-family: 'Helvetica', sans-serif;
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 400;
+}
+
+nav a.active {
+    border-bottom: 2px solid #f00;
+}
+
+/* Style for the logo link */
+header .logo a {
+    text-decoration: none;
+    color: white;
+}

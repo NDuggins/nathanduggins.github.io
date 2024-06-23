@@ -1,4 +1,6 @@
-- name: Home
-  link: /
-- name: About
-  link: /about.html
+- name: "Resume"
+  link: "/"
+- name: "Portfolio"
+  link: "/portfolio/"
+- name: "Contact"
+  link: "/contact/"
