@@ -95,20 +95,6 @@ main {
     }
 }
 
-@media (max-width: 768px) and (orientation: portrait) {
-    .left-sidebar, .right-sidebar {
-        display: none;
-    }
-
-    .main-content {
-        width: 100%;
-    }
-
-    header {
-        left: 0;
-        right: 0;
-    }
-}
 
 h1, h2 {
     color: white;
