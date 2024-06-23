@@ -2,7 +2,6 @@ body {
     font-family: 'Helvetica', sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding-top: 4rem
     padding: 0;
     background-color: #333;
     color: #333;
@@ -23,25 +22,15 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    margin-top: 4rem;
-    position: relative;
-    width: 100%
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem;
     background-color: #333;
     color: white;
-    position:fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    width: 100%;
-    box-sizing: border-box;
 }
 
 header .logo h1 {
@@ -79,7 +68,7 @@ main {
 
 .two-column-layout {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 2rem;
 }
 
@@ -90,10 +79,4 @@ h1, h2 {
 
 p {
     margin: 1rem 0;
-}
-
-@media (max-width: 768px) {
-    .two-column-layout {
-        grid-template-columns: 1fr;
-    }
 }
