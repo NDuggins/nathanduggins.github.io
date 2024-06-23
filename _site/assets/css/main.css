@@ -83,6 +83,18 @@ main {
     grid-gap: 2rem;
 }
 
+@media (min-width: 769px) {
+    .two-column-layout {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .two-column-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
 h1, h2 {
     color: white;
     margin: 0 0 1rem;
@@ -90,10 +102,4 @@ h1, h2 {
 
 p {
     margin: 1rem 0;
-}
-
-@media (max-width: 768px) {
-    .two-column-layout {
-        grid-template-columns: 1fr;
-    }
 }
