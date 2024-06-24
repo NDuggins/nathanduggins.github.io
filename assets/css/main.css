@@ -24,7 +24,7 @@ body {
     flex-direction: column;
     position: relative;
     width: 100%;
-    padding-top: 60px;
+    padding-top: 120px;
 }
 
 header {
@@ -38,7 +38,7 @@ header {
     top: 0;
     left: 100px;
     right: 100px;
-    height: 60px;
+    height: 120px;
     z-index: 1000;
     box-sizing: border-box;
 }
@@ -84,6 +84,17 @@ main {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 2rem;
+    position: relative;
+}
+
+.two-column-layout::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 65.5%; /* Adjust this value if you change the column ratio */
+    width: 1px; /* Adjust the width of the line as needed */
+    background-color: #f00; /* Red color to match the nav buttons */
 }
 
 h1, h2 {
@@ -93,6 +104,16 @@ h1, h2 {
 
 p {
     margin: 1rem 0;
+}
+
+h4 {
+    margin-bottom: 0; /* Remove bottom margin from h4 */
+}
+
+.job-date {
+    display: block; /* Make the span a block element */
+    margin-top: 0; /* Remove top margin */
+    line-height: 1; /* Adjust line height for closer spacing */
 }
 
 @media (max-width: 768px) {
@@ -146,5 +167,8 @@ p {
 
     .two-column-layout {
         grid-template-columns: 1fr;
+    }
+    .two-column-layout::after {
+        display: none; /* Hide the line on mobile */
     }
 }
