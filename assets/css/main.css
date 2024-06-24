@@ -80,6 +80,22 @@ main {
     flex-grow: 1;
 }
 
+.summary-section {
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.summary-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #f00;
+}
+
 .two-column-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -90,11 +106,11 @@ main {
 .two-column-layout::after {
     content: '';
     position: absolute;
-    top: 0;
+    top: -1px;
     bottom: 0;
-    left: 65.5%; /* Adjust this value if you change the column ratio */
-    width: 1px; /* Adjust the width of the line as needed */
-    background-color: #f00; /* Red color to match the nav buttons */
+    left: 65.5%;
+    width: 1px;
+    background-color: #f00;
 }
 
 h1, h2 {
@@ -107,13 +123,13 @@ p {
 }
 
 h4 {
-    margin-bottom: 0; /* Remove bottom margin from h4 */
+    margin-bottom: 0;
 }
 
 .job-date {
-    display: block; /* Make the span a block element */
-    margin-top: 0; /* Remove top margin */
-    line-height: 1; /* Adjust line height for closer spacing */
+    display: block;
+    margin-top: 0;
+    line-height: 1;
 }
 
 @media (max-width: 768px) {
@@ -157,18 +173,21 @@ h4 {
         text-align: center;
         margin: 0;
         padding: 0.5rem 0;
-        /*border-top: 1px solid #555;
-        border-bottom: 1px solid #555;*/
     }
 
     nav a:not(:last-child) {
         border-right: 1px solid #555;
     }
 
+    .summary-section::after {
+        display: none;
+    }
+
     .two-column-layout {
         grid-template-columns: 1fr;
     }
+
     .two-column-layout::after {
-        display: none; /* Hide the line on mobile */
+        display: none;
     }
 }
