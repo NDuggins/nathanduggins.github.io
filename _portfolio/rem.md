@@ -4,7 +4,7 @@ title: REM - Waimakairiri River, New Zealand
 thumbnail: /assets/images/portfolio/Duggins_N_Contest.jpg
 full_image: /assets/images/portfolio/Duggins_N_Contest.jpg
 short_description:
-size: large
+size: wide
 ---
 
 Winner of the People's Choice Award at the 2024 GISCO conference, this relative elevation map (REM) gives us a glimpse into 
