@@ -287,7 +287,7 @@ h4 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.2s ease;
+
 }
 
 .portfolio-overlay {
@@ -312,9 +312,7 @@ h4 {
     opacity: 1;
 }
 
-.portfolio-item:hover .portfolio-thumbnail {
-    transform: scale(1.05); /* Optional: adds a slight zoom effect on hover */
-}
+
 
 /* Portfolio Item Page Styles */
 .portfolio-item-page {
