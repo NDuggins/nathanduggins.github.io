@@ -12,4 +12,6 @@ river channels and we are looking back in time at the ghosts of former stream ch
 REMs are an important tool that ecologists and conservationists can use to glean insight into the worlds they are attempting 
 to peak into.
 
+<!--
 {% include dynamic_content.html type='interactive_map' map_id='waimakairiri-river' %}
+-->
