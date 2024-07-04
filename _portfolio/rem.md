@@ -1,8 +1,8 @@
 ---
 layout: portfolio_item
 title: REM - Waimakairiri River, New Zealand
-thumbnail: ?
-full_image: ?
+thumbnail: /assets/images/portfolio/Duggins_N_Contest.jpg
+full_image: /assets/images/portfolio/Duggins_N_Contest.jpg
 short_description: A relative elevation map of a section of the Waimakairiri River in New Zealand
 ---
 
