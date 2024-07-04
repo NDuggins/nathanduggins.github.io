@@ -2,17 +2,14 @@
 layout: default
 ---
 
-<article class="portfolio-item">
-  <h1>{{ page.title }}</h1>
+<article class="portfolio-item-page">
+  <div class="portfolio-description">
+    <h1>{{ page.title }}</h1>
+    {{ content }}
+  </div>
 
-  <div class="portfolio-content">
-    <div class="portfolio-description">
-      {{ content }}
-    </div>
-
-    <div class="portfolio-image">
-      <img src="{{ page.full_image }}" alt="{{ page.title }}" id="zoomable-image">
-    </div>
+  <div class="portfolio-image">
+    <img src="{{ page.full_image }}" alt="{{ page.title }}" id="zoomable-image">
   </div>
 </article>
 

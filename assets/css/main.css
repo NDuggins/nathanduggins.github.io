@@ -223,6 +223,10 @@ h4 {
     .portfolio-item {
         width: calc(100% - 20px);
     }
+
+    .portfolio-item-page {
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -233,25 +237,28 @@ h4 {
 
 
 
+/* Portfolio Grid Styles */
 .portfolio-grid {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
 }
 
-.portfolio-item {
-    width: calc(33.333% - 20px);
-    margin-bottom: 20px;
+.portfolio-grid .portfolio-item {
     position: relative;
     overflow: hidden;
 }
 
-.portfolio-thumbnail {
+.portfolio-grid .portfolio-thumbnail {
     width: 100%;
     height: auto;
     display: block;
     transition: transform 0.3s ease;
 }
 
-.portfolio-overlay {
+.portfolio-grid .portfolio-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -269,49 +276,39 @@ h4 {
     padding: 20px;
 }
 
-.portfolio-item:hover .portfolio-thumbnail {
+.portfolio-grid .portfolio-item:hover .portfolio-thumbnail {
     transform: scale(1.05);
 }
 
-.portfolio-item:hover .portfolio-overlay {
+.portfolio-grid .portfolio-item:hover .portfolio-overlay {
     opacity: 1;
 }
 
-.portfolio-overlay h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.2em;
+/* Portfolio Item Page Styles */
+.portfolio-item-page {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.portfolio-overlay p {
-    margin: 0;
-    font-size: 0.9em;
+.portfolio-item-page .portfolio-description {
+    flex: 1;
 }
 
-.portfolio-page {
-    padding: 0 20px;
+.portfolio-item-page .portfolio-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.portfolio-content {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.portfolio-description {
-  flex: 1;
-}
-
-.portfolio-image {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.portfolio-image img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
+.portfolio-item-page .portfolio-image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 #map-container {
