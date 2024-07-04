@@ -1,0 +1,12 @@
+title: Nathan Duggins
+description: GIS Technician and Cartographer Portfolio
+baseurl: "" # leave this empty for your case
+url: "https://www.nathanduggins.com"
+
+collections:
+  portfolio:
+    output: true
+    permalink: /portfolio/:name/
+
+markdown: kramdown
+
