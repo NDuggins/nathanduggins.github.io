@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Portfolio1
+title: Portfolio
 permalink: /portfolio/
 ---
 
@@ -9,16 +9,7 @@ permalink: /portfolio/
 
     <div class="portfolio-grid">
         {% for item in site.portfolio %}
-            {% assign size_class = "" %}
-            {% case forloop.index %}
-                {% when 1 %}
-                    {% assign size_class = "large" %}
-                {% when 2 %}
-                    {% assign size_class = "tall" %}
-                {% when 3 %}
-                    {% assign size_class = "wide" %}
-            {% endcase %}
-            <div class="portfolio-item {{ size_class }}">
+            <div class="portfolio-item {% if item.size %}{{ item.size }}{% endif %}">
                 <a href="{{ item.url }}" class="portfolio-link">
                     <img src="{{ item.thumbnail }}" alt="{{ item.title }}" class="portfolio-thumbnail">
                     <div class="portfolio-overlay">
