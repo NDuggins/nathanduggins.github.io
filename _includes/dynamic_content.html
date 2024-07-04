@@ -1,15 +1,9 @@
 {% case include.type %}
-  {% when 'dashboard' %}
-    <div id="dashboard-container" data-source="{{ include.data_source }}">
-      <!-- Dashboard will be loaded here -->
-    </div>
-    <script src="/assets/js/load-dashboard.js"></script>
   {% when 'interactive_map' %}
     <div id="map-container" data-map-id="{{ include.map_id }}">
-      <!-- Interactive map will be loaded here -->
+      <p>Interactive map loading...</p>
     </div>
     <script src="/assets/js/load-map.js"></script>
   {% else %}
-    <!-- Default to static image if no specific type is specified -->
     <img src="{{ include.image }}" alt="{{ include.alt }}" id="zoomable-image">
 {% endcase %}
