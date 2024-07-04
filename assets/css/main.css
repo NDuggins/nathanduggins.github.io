@@ -213,15 +213,16 @@ h4 {
     }
 
     .portfolio-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .portfolio-item,
     .portfolio-item.wide,
-    .portfolio-item.tall,
-    .portfolio-item.large {
-        grid-column: span 2;
-        grid-row: span 2;
+    .portfolio-item.extra-wide,
+    .portfolio-item.tall {
+        grid-column: span 1;
+        grid-row: span 1;
+        aspect-ratio: 1 / 1;
     }
 
     .portfolio-item-page {
@@ -246,7 +247,7 @@ h4 {
 /* Portfolio Grid Styles */
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     padding: 20px;
 }
@@ -254,23 +255,24 @@ h4 {
 .portfolio-item {
     position: relative;
     overflow: hidden;
-    grid-column: span 2;
-    grid-row: span 2;
+    grid-column: span 1;
+    grid-row: span 1;
+    aspect-ratio: 1 / 1;
 }
 
 .portfolio-item.wide {
-    grid-column: span 4;
-    grid-row: span 2;
+    grid-column: span 2;
+    aspect-ratio: 2 / 1;
+}
+
+.portfolio-item.extra-wide {
+    grid-column: span 3;
+    aspect-ratio: 3 / 1;
 }
 
 .portfolio-item.tall {
-    grid-column: span 2;
-    grid-row: span 4;
-}
-
-.portfolio-item.large {
-    grid-column: span 4;
-    grid-row: span 4;
+    grid-row: span 2;
+    aspect-ratio: 1 / 2;
 }
 
 .portfolio-thumbnail {
