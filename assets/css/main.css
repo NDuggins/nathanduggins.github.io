@@ -245,26 +245,40 @@ h4 {
 
 /* Portfolio Grid Styles */
 .portfolio-grid {
-    width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
+    gap: 10px;
     padding: 20px;
 }
 
-.portfolio-grid .portfolio-item {
+.portfolio-item {
     position: relative;
     overflow: hidden;
 }
 
-.portfolio-grid .portfolio-thumbnail {
+.portfolio-item.wide {
+    grid-column: span 2;
+}
+
+.portfolio-item.tall {
+    grid-row: span 2;
+}
+
+.portfolio-item.large {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.portfolio-thumbnail {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.3s ease;
 }
 
-.portfolio-grid .portfolio-overlay {
+.portfolio-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -282,11 +296,11 @@ h4 {
     padding: 20px;
 }
 
-.portfolio-grid .portfolio-item:hover .portfolio-thumbnail {
+.portfolio-item:hover .portfolio-thumbnail {
     transform: scale(1.05);
 }
 
-.portfolio-grid .portfolio-item:hover .portfolio-overlay {
+.portfolio-item:hover .portfolio-overlay {
     opacity: 1;
 }
 
