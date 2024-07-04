@@ -312,9 +312,7 @@ h4 {
     opacity: 1;
 }
 
-.portfolio-item:hover .portfolio-thumbnail {
-    transform: scale(1.05); /* Optional: adds a slight zoom effect on hover */
-}
+
 
 /* Portfolio Item Page Styles */
 .portfolio-item-page {
