@@ -42,18 +42,8 @@
 
     <div class="portfolio-grid">
         
-            <div class="portfolio-item extra-wide">
-                <a href="/portfolio/dickens/" class="portfolio-link">
-                    <img src="/assets/images/portfolio/Vrain_Day1_ortho_bad.jpg" alt="St. Vrain Creek Orthophotos" class="portfolio-thumbnail">
-                    <div class="portfolio-overlay">
-                        <h3>St. Vrain Creek Orthophotos</h3>
-                        <p></p>
-                    </div>
-                </a>
-            </div>
-        
             <div class="portfolio-item wide">
-                <a href="/portfolio/rem/" class="portfolio-link">
+                <a href="/portfolio/1-rem/" class="portfolio-link">
                     <img src="/assets/images/portfolio/Duggins_N_Contest.jpg" alt="REM - Waimakairiri River, New Zealand" class="portfolio-thumbnail">
                     <div class="portfolio-overlay">
                         <h3>REM - Waimakairiri River, New Zealand</h3>
@@ -63,7 +53,7 @@
             </div>
         
             <div class="portfolio-item tall">
-                <a href="/portfolio/test1/" class="portfolio-link">
+                <a href="/portfolio/2-test1/" class="portfolio-link">
                     <img src="/assets/images/portfolio/abstractPaint_vert.JPG" alt="Test1" class="portfolio-thumbnail">
                     <div class="portfolio-overlay">
                         <h3>Test1</h3>
@@ -72,8 +62,18 @@
                 </a>
             </div>
         
+            <div class="portfolio-item extra-wide">
+                <a href="/portfolio/3-dickens/" class="portfolio-link">
+                    <img src="/assets/images/portfolio/Vrain_Day1_ortho_bad.jpg" alt="St. Vrain Creek Orthophotos" class="portfolio-thumbnail">
+                    <div class="portfolio-overlay">
+                        <h3>St. Vrain Creek Orthophotos</h3>
+                        <p></p>
+                    </div>
+                </a>
+            </div>
+        
             <div class="portfolio-item tall">
-                <a href="/portfolio/test2/" class="portfolio-link">
+                <a href="/portfolio/4-test2/" class="portfolio-link">
                     <img src="/assets/images/portfolio/abstractPaint_vert.JPG" alt="Test2" class="portfolio-thumbnail">
                     <div class="portfolio-overlay">
                         <h3>Test2</h3>
@@ -84,24 +84,6 @@
         
     </div>
 </div>
-
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var grid = document.querySelector('.portfolio-grid');
-    var msnry;
-
-    imagesLoaded(grid, function() {
-        msnry = new Masonry(grid, {
-            itemSelector: '.portfolio-item',
-            columnWidth: '.portfolio-item',
-            percentPosition: true,
-            gutter: 10
-        });
-    });
-});
-</script>
       </main>
     </div>
 
