@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test1</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="left-sidebar">
+      <!-- Left sidebar content -->
+    </aside>
+
+    <div class="main-content">
+      <header>
+    <div class="logo">
+        <a href="/">
+            <h1>Nathan Duggins</h1>
+        </a>
+    </div>
+    <nav>
+        
+            <a href="/" >
+                Resume
+            </a>
+        
+            <a href="/portfolio/" >
+                Portfolio
+            </a>
+        
+            <a href="/contact/" >
+                Contact
+            </a>
+        
+    </nav>
+</header>
+
+      <main>
+        <article class="portfolio-item-page">
+  <div class="portfolio-description">
+    <h1>Test1</h1>
+    <p>Test1</p>
+
+  </div>
+
+  <div class="portfolio-image">
+    <img src="/assets/images/portfolio/dice.jpg" alt="Test1" id="zoomable-image">
+  </div>
+</article>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+
+<script>
+  lightbox.option({
+    'resizeDuration': 200,
+    'wrapAround': true
+  });
+
+  document.getElementById('zoomable-image').addEventListener('click', function() {
+    lightbox.start(this);
+  });
+</script>
+      </main>
+    </div>
+
+    <aside class="right-sidebar">
+      <!-- Right sidebar content -->
+    </aside>
+  </div>
+</body>
+</html>
