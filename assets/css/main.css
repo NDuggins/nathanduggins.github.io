@@ -216,11 +216,13 @@ h4 {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .portfolio-item,
     .portfolio-item.wide,
-    .portfolio-item.extra-wide,
-    .portfolio-item.tall {
+    .portfolio-item.extra-wide {
         grid-column: span 1;
+        aspect-ratio: 1 / 1;
+    }
+
+    .portfolio-item.tall {
         grid-row: span 1;
         aspect-ratio: 1 / 1;
     }
@@ -237,8 +239,13 @@ h4 {
 }
 
 @media screen and (max-width: 1024px) {
-    .portfolio-item {
-        width: calc(50% - 20px);
+    .portfolio-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .portfolio-item.extra-wide {
+        grid-column: span 2;
+        aspect-ratio: 2 / 1;
     }
 }
 
@@ -250,6 +257,7 @@ h4 {
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     padding: 150px;
+    padding: 150px 20px 20px;
 }
 
 .portfolio-item {
@@ -258,6 +266,7 @@ h4 {
     grid-column: span 1;
     grid-row: span 1;
     aspect-ratio: 1 / 1;
+    min-height: 200px
 }
 
 .portfolio-item.wide {
