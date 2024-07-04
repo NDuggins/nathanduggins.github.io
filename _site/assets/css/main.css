@@ -230,15 +230,16 @@ h4 {
 }
 
 .portfolio-item {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
 }
-}
+
 
 .portfolio-thumbnail {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
 
@@ -261,11 +262,21 @@ h4 {
 }
 
 .portfolio-item:hover .portfolio-thumbnail {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .portfolio-item:hover .portfolio-overlay {
   opacity: 1;
+}
+
+.portfolio-overlay h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+.portfolio-overlay p {
+  margin: 0;
+  font-size: 0.9em;
 }
 
 .portfolio-page {
