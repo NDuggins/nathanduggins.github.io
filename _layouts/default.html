@@ -7,9 +7,21 @@
   <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
-  {% include header.html %}
-  <main>
-    {{ content }}
-  </main>
+  <div class="wrapper">
+    <aside class="left-sidebar">
+      <!-- Left sidebar content -->
+    </aside>
+
+    <div class="main-content">
+      {% include header.html %}
+      <main>
+        {{ content }}
+      </main>
+    </div>
+
+    <aside class="right-sidebar">
+      <!-- Right sidebar content -->
+    </aside>
+  </div>
 </body>
 </html>
