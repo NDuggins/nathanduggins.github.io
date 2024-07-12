@@ -283,13 +283,6 @@ h4 {
     aspect-ratio: 1 / 2;
 }
 
-.portfolio-thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-
-}
-
 .portfolio-overlay {
     position: absolute;
     top: 0;
@@ -306,10 +299,24 @@ h4 {
     align-items: center;
     text-align: center;
     padding: 20px;
+    will-change: opacity;
+    pointer-events: none;
 }
 
 .portfolio-item:hover .portfolio-overlay {
     opacity: 1;
+}
+
+.portfolio-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+    will-change: transform;
+}
+
+.portfolio-item:hover .portfolio-thumbnail {
+    transform: scale(1.05);
 }
 
 
@@ -349,4 +356,48 @@ h4 {
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+}
+
+
+/* Zoomable Image Styles */
+#zoomable-image {
+  cursor: zoom-in;
+}
+
+.zoom-overlay {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.zoom-overlay img {
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  object-fit: contain;
+}
+
+.zoom-overlay .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.zoom-overlay .close-btn:hover,
+.zoom-overlay .close-btn:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
 }

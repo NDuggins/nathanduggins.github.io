@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>St. Vrain Creek Flood Reconstruction</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <div class="wrapper">
+    <aside class="left-sidebar">
+      <!-- Left sidebar content -->
+    </aside>
+
+    <div class="main-content">
+      <header>
+    <div class="logo">
+        <a href="/">
+            <h1>Nathan Duggins</h1>
+        </a>
+    </div>
+    <nav>
+        
+            <a href="/" >
+                Resume
+            </a>
+        
+            <a href="/portfolio/" >
+                Portfolio
+            </a>
+        
+            <a href="/contact/" >
+                Contact
+            </a>
+        
+    </nav>
+</header>
+
+      <main>
+        <article class="portfolio-item-page">
+  <div class="portfolio-description">
+    <h1>St. Vrain Creek Flood Reconstruction</h1>
+    <p>In 2013, a devastating flood tore through Northern Colorado, wreaking havoc on local ecologies. 
+The area surrounding the St. Vrain Creek, an important waterway running through Longmont, was hit especially hard. 
+Post-flood, the Dickens Farm Nature Area was redesigned for public use, with walkways and easy water access, while other 
+areas focused on ecological restoration. To aid a team from the University of Northern Colorado in assessing the progress 
+and effectiveness of reconstruction efforts in the region, we carefully mapped a 2+ mile stretch of the creek. 
+We used a UAV-mounted multispectral camera, along with a ground-based Trimble unit to collect ground control points and 
+achieved accuracy in the cm range. Our deliverables included high-quality orthophotos, digital elevation models (DEMs), 
+normalized difference vegitation index (NDVI) layers, and point clouds, 
+some of which you are seeing here. These maps contain information crucial for ecologists to gauge current progress and 
+will serve as a baseline for future studies, allowing for comparisons between different sites with their unique 
+reconstruction objectives.</p>
+
+  </div>
+
+  <div class="portfolio-image">
+    <img src="/assets/images/portfolio/DickensLayout.jpg" alt="St. Vrain Creek Flood Reconstruction" id="zoomable-image">
+  </div>
+</article>
+
+<div id="image-popup" class="popup">
+  <span class="close-btn">&times;</span>
+  <img class="popup-content" id="popup-img">
+</div>
+
+<style>
+  #zoomable-image {
+    cursor: zoom-in;
+  }
+  .popup {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+  }
+  .popup-content {
+    display: block;
+    margin: auto;
+    max-width: 90%;
+    max-height: 90%;
+  }
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const img = document.getElementById('zoomable-image');
+  const popup = document.getElementById('image-popup');
+  const popupImg = document.getElementById('popup-img');
+  const closeBtn = document.querySelector('.close-btn');
+
+  let scale = 1;
+  let panning = false;
+  let pointX = 0;
+  let pointY = 0;
+  let start = { x: 0, y: 0 };
+
+  img.onclick = function() {
+    popup.style.display = 'block';
+    popupImg.src = this.src;
+    scale = 1;
+    panning = false;
+    pointX = 0;
+    pointY = 0;
+    setTransform();
+  }
+
+  closeBtn.onclick = function() {
+    popup.style.display = 'none';
+  }
+
+  popupImg.onwheel = function(e) {
+    e.preventDefault();
+    let xs = (e.clientX - pointX) / scale;
+    let ys = (e.clientY - pointY) / scale;
+    let delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+    (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
+    pointX = e.clientX - xs * scale;
+    pointY = e.clientY - ys * scale;
+
+    setTransform();
+  }
+
+  popupImg.onmousedown = function(e) {
+    e.preventDefault();
+    start = { x: e.clientX - pointX, y: e.clientY - pointY };
+    panning = true;
+  }
+
+  popupImg.onmouseup = function(e) {
+    panning = false;
+  }
+
+  popupImg.onmousemove = function(e) {
+    e.preventDefault();
+    if (!panning) {
+      return;
+    }
+    pointX = (e.clientX - start.x);
+    pointY = (e.clientY - start.y);
+    setTransform();
+  }
+
+  function setTransform() {
+    popupImg.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
+  }
+});
+</script>
+      </main>
+    </div>
+
+    <aside class="right-sidebar">
+      <!-- Right sidebar content -->
+    </aside>
+  </div>
+</body>
+</html>
