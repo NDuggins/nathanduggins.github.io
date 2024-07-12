@@ -45,19 +45,16 @@
   </div>
 
   <div class="portfolio-image">
-    <img src="/assets/images/portfolio/abstractPaint_vert.JPG" alt="Test2" id="zoomable-image">
+    <img src="/assets/images/portfolio/abstractPaint_vert.JPG" alt="Test2" id="zoomable-image" style="cursor: zoom-in;">
   </div>
 </article>
 
 <div id="image-popup" class="popup">
   <span class="close-btn">&times;</span>
-  <img class="popup-content" id="popup-img">
+  <canvas id="popup-canvas"></canvas>
 </div>
 
 <style>
-  #zoomable-image {
-    cursor: zoom-in;
-  }
   .popup {
     display: none;
     position: fixed;
@@ -66,14 +63,12 @@
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     background-color: rgba(0,0,0,0.9);
   }
-  .popup-content {
+  #popup-canvas {
     display: block;
     margin: auto;
-    max-width: 90%;
-    max-height: 90%;
   }
   .close-btn {
     position: absolute;
@@ -90,64 +85,129 @@
 document.addEventListener('DOMContentLoaded', function() {
   const img = document.getElementById('zoomable-image');
   const popup = document.getElementById('image-popup');
-  const popupImg = document.getElementById('popup-img');
+  const canvas = document.getElementById('popup-canvas');
+  const ctx = canvas.getContext('2d');
   const closeBtn = document.querySelector('.close-btn');
 
-  let scale = 1;
-  let panning = false;
-  let pointX = 0;
-  let pointY = 0;
-  let start = { x: 0, y: 0 };
+  const view = (() => {
+    const matrix = [1, 0, 0, 1, 0, 0];
+    let m = matrix;
+    let scale = 1;
+    let ctx;
+    const pos = { x: 0, y: 0 };
+    let dirty = true;
+    const API = {
+      set context(_ctx) { ctx = _ctx; dirty = true },
+      apply() {
+        if (dirty) { this.update() }
+        ctx.setTransform(m[0], m[1], m[2], m[3], m[4], m[5])
+      },
+      get scale() { return scale },
+      get position() { return pos },
+      isDirty() { return dirty },
+      update() {
+        dirty = false;
+        m[3] = m[0] = scale;
+        m[2] = m[1] = 0;
+        m[4] = pos.x;
+        m[5] = pos.y;
+      },
+      pan(amount) {
+        if (dirty) { this.update() }
+        pos.x += amount.x;
+        pos.y += amount.y;
+        dirty = true;
+      },
+      scaleAt(at, amount) {
+        if (dirty) { this.update() }
+        scale *= amount;
+        pos.x = at.x - (at.x - pos.x) * amount;
+        pos.y = at.y - (at.y - pos.y) * amount;
+        dirty = true;
+      },
+      reset() {
+        scale = 1;
+        pos.x = 0;
+        pos.y = 0;
+        dirty = true;
+      },
+      fitToExtent(imgWidth, imgHeight, canvasWidth, canvasHeight) {
+        const scaleX = canvasWidth / imgWidth;
+        const scaleY = canvasHeight / imgHeight;
+        scale = Math.min(scaleX, scaleY);
+        pos.x = (canvasWidth - imgWidth * scale) / 2;
+        pos.y = (canvasHeight - imgHeight * scale) / 2;
+        dirty = true;
+      }
+    };
+    return API;
+  })();
+
+  function fitImageToCanvas() {
+    const canvasWidth = window.innerWidth;
+    const canvasHeight = window.innerHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    view.fitToExtent(img.naturalWidth, img.naturalHeight, canvasWidth, canvasHeight);
+  }
 
   img.onclick = function() {
     popup.style.display = 'block';
-    popupImg.src = this.src;
-    scale = 1;
-    panning = false;
-    pointX = 0;
-    pointY = 0;
-    setTransform();
+    view.context = ctx;
+    fitImageToCanvas();
+    drawCanvas();
   }
 
   closeBtn.onclick = function() {
     popup.style.display = 'none';
   }
 
-  popupImg.onwheel = function(e) {
-    e.preventDefault();
-    let xs = (e.clientX - pointX) / scale;
-    let ys = (e.clientY - pointY) / scale;
-    let delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
-    (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
-    pointX = e.clientX - xs * scale;
-    pointY = e.clientY - ys * scale;
-
-    setTransform();
-  }
-
-  popupImg.onmousedown = function(e) {
-    e.preventDefault();
-    start = { x: e.clientX - pointX, y: e.clientY - pointY };
-    panning = true;
-  }
-
-  popupImg.onmouseup = function(e) {
-    panning = false;
-  }
-
-  popupImg.onmousemove = function(e) {
-    e.preventDefault();
-    if (!panning) {
-      return;
+  function drawCanvas() {
+    if (view.isDirty()) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      view.apply();
+      ctx.drawImage(img, 0, 0);
     }
-    pointX = (e.clientX - start.x);
-    pointY = (e.clientY - start.y);
-    setTransform();
+    requestAnimationFrame(drawCanvas);
   }
 
-  function setTransform() {
-    popupImg.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
+  canvas.addEventListener("mousemove", mouseEvent, {passive: true});
+  canvas.addEventListener("mousedown", mouseEvent, {passive: true});
+  canvas.addEventListener("mouseup", mouseEvent, {passive: true});
+  canvas.addEventListener("mouseout", mouseEvent, {passive: true});
+  canvas.addEventListener("wheel", mouseWheelEvent, {passive: false});
+
+  const mouse = {x: 0, y: 0, oldX: 0, oldY: 0, button: false};
+
+  function mouseEvent(event) {
+    if (event.type === "mousedown") { mouse.button = true }
+    if (event.type === "mouseup" || event.type === "mouseout") { mouse.button = false }
+    mouse.oldX = mouse.x;
+    mouse.oldY = mouse.y;
+    mouse.x = event.offsetX;
+    mouse.y = event.offsetY
+    if(mouse.button) {
+      view.pan({x: mouse.x - mouse.oldX, y: mouse.y - mouse.oldY});
+    }
   }
+
+  function mouseWheelEvent(event) {
+    const x = event.offsetX;
+    const y = event.offsetY;
+    if (event.deltaY < 0) {
+      view.scaleAt({x, y}, 1.1);
+    } else {
+      view.scaleAt({x, y}, 1 / 1.1);
+    }
+    event.preventDefault();
+  }
+
+  window.addEventListener('resize', function() {
+    if (popup.style.display === 'block') {
+      fitImageToCanvas();
+    }
+  });
 });
 </script>
       </main>
