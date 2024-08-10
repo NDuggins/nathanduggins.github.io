@@ -9,7 +9,7 @@ layout: default
   </div>
 
   <div class="portfolio-image">
-    <img src="{{ page.full_image }}" alt="{{ page.title }}" id="zoomable-image" style="cursor: zoom-in;">
+    <img src="{{ page.full_image }}" alt="{{ page.title }}" id="zoomable-image" style="cursor: {% if page.storymap_url %}pointer{% else %}zoom-in{% endif %};">
   </div>
 </article>
 
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const canvas = document.getElementById('popup-canvas');
   const ctx = canvas.getContext('2d');
   const closeBtn = document.querySelector('.close-btn');
+  const storymapUrl = '{{ page.storymap_url }}';
 
   const view = (() => {
     const matrix = [1, 0, 0, 1, 0, 0];
@@ -116,10 +117,14 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   img.onclick = function() {
-    popup.style.display = 'block';
-    view.context = ctx;
-    fitImageToCanvas();
-    drawCanvas();
+    if (storymapUrl) {
+      window.open(storymapUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      popup.style.display = 'block';
+      view.context = ctx;
+      fitImageToCanvas();
+      drawCanvas();
+    }
   }
 
   closeBtn.onclick = function() {

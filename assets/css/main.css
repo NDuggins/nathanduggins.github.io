@@ -319,7 +319,9 @@ h4 {
     transform: scale(1.05);
 }
 
-
+.portfolio-item video.portfolio-thumbnail {
+    object-fit: cover;
+}
 
 /* Portfolio Item Page Styles */
 .portfolio-item-page {
