@@ -12,7 +12,7 @@ permalink: /portfolio/
     <div class="portfolio-item {% if item.size %}{{ item.size }}{% endif %}">
       <a href="{{ item.url }}" class="portfolio-link">
         {% if item.thumbnail contains '.mp4' %}
-          <video class="portfolio-thumbnail" autoplay loop muted playsinline>
+          <video class="portfolio-thumbnail" loop muted playsinline poster="{{ item.thumbnail | replace: '.mp4', '-poster.jpg' }}">
             <source src="{{ item.thumbnail }}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -28,3 +28,22 @@ permalink: /portfolio/
     {% endfor %}
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const videoThumbnails = document.querySelectorAll('.portfolio-thumbnail');
+
+  videoThumbnails.forEach(video => {
+    if (video.tagName === 'VIDEO') {
+      video.addEventListener('mouseenter', function() {
+        this.play();
+      });
+
+      video.addEventListener('mouseleave', function() {
+        this.pause();
+        this.currentTime = 0;  // Reset to the beginning when mouse leaves
+      });
+    }
+  });
+});
+</script>

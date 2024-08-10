@@ -57,7 +57,7 @@
     <div class="portfolio-item tall">
       <a href="/portfolio/2-point-reyes/" class="portfolio-link">
         
-          <video class="portfolio-thumbnail" autoplay loop muted playsinline>
+          <video class="portfolio-thumbnail" loop muted playsinline poster="/assets/images/portfolio/SlideSmallerVid2-poster.jpg">
             <source src="/assets/images/portfolio/SlideSmallerVid2.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -95,6 +95,25 @@
     
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const videoThumbnails = document.querySelectorAll('.portfolio-thumbnail');
+
+  videoThumbnails.forEach(video => {
+    if (video.tagName === 'VIDEO') {
+      video.addEventListener('mouseenter', function() {
+        this.play();
+      });
+
+      video.addEventListener('mouseleave', function() {
+        this.pause();
+        this.currentTime = 0;  // Reset to the beginning when mouse leaves
+      });
+    }
+  });
+});
+</script>
       </main>
     </div>
 
