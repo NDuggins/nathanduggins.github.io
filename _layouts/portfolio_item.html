@@ -9,7 +9,11 @@ layout: default
   </div>
 
   <div class="portfolio-image">
-    <img src="{{ page.full_image }}" alt="{{ page.title }}" id="zoomable-image" style="cursor: {% if page.storymap_url %}pointer{% else %}zoom-in{% endif %};">
+    {% if page.storymap_url %}
+      <img src="https://storymaps.arcgis.com/stories/{{ page.storymap_url | split: '/' | last }}/media/image/1" alt="{{ page.title }}" id="zoomable-image" style="cursor: pointer;">
+    {% else %}
+      <img src="{{ page.full_image }}" alt="{{ page.title }}" id="zoomable-image" style="cursor: zoom-in;">
+    {% endif %}
   </div>
 </article>
 

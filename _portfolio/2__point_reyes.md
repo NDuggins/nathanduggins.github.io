@@ -2,7 +2,7 @@
 layout: portfolio_item
 title: Point Reyes, CA
 thumbnail: /assets/images/portfolio/SlideSmallerVid2.mp4
-full_image: /assets/images/portfolio/SlideStockImage.jpg
+full_image: https://storymaps.arcgis.com/stories/a2265baddeef4e33829617c9d7542329/media/image/1
 short_description: Multispectral Beach Mapping with UAV
 size: tall
 storymap_url: https://storymaps.arcgis.com/stories/a2265baddeef4e33829617c9d7542329

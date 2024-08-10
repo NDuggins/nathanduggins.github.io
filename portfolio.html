@@ -12,7 +12,7 @@ permalink: /portfolio/
     <div class="portfolio-item {% if item.size %}{{ item.size }}{% endif %}">
       <a href="{{ item.url }}" class="portfolio-link">
         {% if item.thumbnail contains '.mp4' %}
-          <video class="portfolio-thumbnail" loop muted playsinline poster="{{ item.thumbnail | replace: '.mp4', '-poster.jpg' }}">
+          <video class="portfolio-thumbnail" loop muted playsinline poster="{{ item.full_image }}">
             <source src="{{ item.thumbnail }}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
