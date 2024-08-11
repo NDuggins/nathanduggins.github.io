@@ -9,21 +9,37 @@ layout: default
   </div>
 
   <div class="portfolio-image">
-    {% if page.storymap_url %}
-      <a href="{{ page.storymap_url }}" target="_blank" rel="noopener noreferrer">
-        <img src="{{ page.full_image }}" alt="{{ page.title }}" id="storymap-image" style="cursor: pointer;">
-      </a>
-    {% else %}
-      <img src="{{ page.full_image }}" alt="{{ page.title }}" id="zoomable-image" style="cursor: zoom-in;">
-    {% endif %}
+    <img src="{{ page.thumbnail }}" alt="{{ page.title }}" id="zoomable-image" style="cursor: {% if page.storymap_url %}pointer{% else %}zoom-in{% endif %};">
   </div>
 </article>
 
-{% if page.storymap_url == nil %}
 <div id="image-popup" class="popup">
   <span class="close-btn">&times;</span>
   <canvas id="popup-canvas"></canvas>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const img = document.getElementById('zoomable-image');
+  const popup = document.getElementById('image-popup');
+  const canvas = document.getElementById('popup-canvas');
+  const ctx = canvas.getContext('2d');
+  const closeBtn = document.querySelector('.close-btn');
+  const storymapUrl = '{{ page.storymap_url }}';
+
+  // Your existing zoom functionality script here
+  // (Keep all the JavaScript for zooming that you had before)
+
+  img.onclick = function() {
+    if (storymapUrl) {
+      window.open(storymapUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      popup.style.display = 'block';
+      view.context = ctx;
+      fitImageToCanvas();
+      drawCanvas();
+    }
+  }
 
 <style>
   .popup {
