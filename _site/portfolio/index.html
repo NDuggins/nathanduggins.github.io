@@ -57,7 +57,8 @@
     <div class="portfolio-item tall">
       <a href="/portfolio/2-point-reyes/" class="portfolio-link">
         
-          <video class="portfolio-thumbnail" loop muted playsinline poster="https://storymaps.arcgis.com/stories/a2265baddeef4e33829617c9d7542329/media/image/1">
+          <img src="/assets/images/portfolio/SlideStockImage.jpg" alt="Point Reyes, CA" class="portfolio-thumbnail static-thumbnail">
+          <video class="portfolio-thumbnail video-thumbnail" loop muted playsinline style="display: none;">
             <source src="/assets/images/portfolio/SlideSmallerVid2.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -98,17 +99,24 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const videoThumbnails = document.querySelectorAll('.portfolio-thumbnail');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-  videoThumbnails.forEach(video => {
-    if (video.tagName === 'VIDEO') {
-      video.addEventListener('mouseenter', function() {
-        this.play();
+  portfolioItems.forEach(item => {
+    const staticThumbnail = item.querySelector('.static-thumbnail');
+    const videoThumbnail = item.querySelector('.video-thumbnail');
+
+    if (staticThumbnail && videoThumbnail) {
+      item.addEventListener('mouseenter', function() {
+        staticThumbnail.style.display = 'none';
+        videoThumbnail.style.display = 'block';
+        videoThumbnail.play();
       });
 
-      video.addEventListener('mouseleave', function() {
-        this.pause();
-        this.currentTime = 0;  // Reset to the beginning when mouse leaves
+      item.addEventListener('mouseleave', function() {
+        staticThumbnail.style.display = 'block';
+        videoThumbnail.style.display = 'none';
+        videoThumbnail.pause();
+        videoThumbnail.currentTime = 0;
       });
     }
   });

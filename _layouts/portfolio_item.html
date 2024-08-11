@@ -10,13 +10,16 @@ layout: default
 
   <div class="portfolio-image">
     {% if page.storymap_url %}
-      <img src="https://storymaps.arcgis.com/stories/{{ page.storymap_url | split: '/' | last }}/media/image/1" alt="{{ page.title }}" id="zoomable-image" style="cursor: pointer;">
+      <a href="{{ page.storymap_url }}" target="_blank" rel="noopener noreferrer">
+        <img src="{{ page.full_image }}" alt="{{ page.title }}" id="storymap-image" style="cursor: pointer;">
+      </a>
     {% else %}
       <img src="{{ page.full_image }}" alt="{{ page.title }}" id="zoomable-image" style="cursor: zoom-in;">
     {% endif %}
   </div>
 </article>
 
+{% if page.storymap_url == nil %}
 <div id="image-popup" class="popup">
   <span class="close-btn">&times;</span>
   <canvas id="popup-canvas"></canvas>
@@ -183,3 +186,4 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+{% endif %}

@@ -11,9 +11,10 @@ permalink: /portfolio/
     {% for item in site.portfolio %}
     <div class="portfolio-item {% if item.size %}{{ item.size }}{% endif %}">
       <a href="{{ item.url }}" class="portfolio-link">
-        {% if item.thumbnail contains '.mp4' %}
-          <video class="portfolio-thumbnail" loop muted playsinline poster="{{ item.full_image }}">
-            <source src="{{ item.thumbnail }}" type="video/mp4">
+        {% if item.video_thumbnail %}
+          <img src="{{ item.static_thumbnail }}" alt="{{ item.title }}" class="portfolio-thumbnail static-thumbnail">
+          <video class="portfolio-thumbnail video-thumbnail" loop muted playsinline style="display: none;">
+            <source src="{{ item.video_thumbnail }}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         {% else %}
@@ -31,17 +32,24 @@ permalink: /portfolio/
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const videoThumbnails = document.querySelectorAll('.portfolio-thumbnail');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-  videoThumbnails.forEach(video => {
-    if (video.tagName === 'VIDEO') {
-      video.addEventListener('mouseenter', function() {
-        this.play();
+  portfolioItems.forEach(item => {
+    const staticThumbnail = item.querySelector('.static-thumbnail');
+    const videoThumbnail = item.querySelector('.video-thumbnail');
+
+    if (staticThumbnail && videoThumbnail) {
+      item.addEventListener('mouseenter', function() {
+        staticThumbnail.style.display = 'none';
+        videoThumbnail.style.display = 'block';
+        videoThumbnail.play();
       });
 
-      video.addEventListener('mouseleave', function() {
-        this.pause();
-        this.currentTime = 0;  // Reset to the beginning when mouse leaves
+      item.addEventListener('mouseleave', function() {
+        staticThumbnail.style.display = 'block';
+        videoThumbnail.style.display = 'none';
+        videoThumbnail.pause();
+        videoThumbnail.currentTime = 0;
       });
     }
   });
