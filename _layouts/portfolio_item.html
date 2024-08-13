@@ -9,7 +9,7 @@ layout: default
   </div>
 
   <div class="portfolio-image">
-    <img src="{{ page.thumbnail }}" alt="{{ page.title }}" id="zoomable-image" style="cursor: {% if page.storymap_url %}pointer{% else %}zoom-in{% endif %};">
+    <img src="{{ page.thumbnail }}" data-full-image="{{ page.full_image | default: page.thumbnail }}" alt="{{ page.title }}" id="zoomable-image" style="cursor: {% if page.storymap_url %}pointer{% else %}zoom-in{% endif %};">
   </div>
 </article>
 
@@ -121,9 +121,14 @@ document.addEventListener('DOMContentLoaded', function() {
       window.open(storymapUrl, '_blank', 'noopener,noreferrer');
     } else {
       popup.style.display = 'block';
-      view.context = ctx;
-      fitImageToCanvas();
-      drawCanvas();
+      const fullSizeImg = new Image();
+      fullSizeImg.onload = function() {
+        img.src = fullSizeImg.src;
+        view.context = ctx;
+        fitImageToCanvas();
+        drawCanvas();
+      };
+      fullSizeImg.src = img.dataset.fullImage;
     }
   }
 

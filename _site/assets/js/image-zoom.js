@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
       overlay.className = 'zoom-overlay';
 
       const zoomedImg = document.createElement('img');
-      zoomedImg.src = this.src;
+      // Use the full-size image for zooming on both desktop and mobile
+      zoomedImg.src = this.dataset.fullImage || this.src;
 
       const closeBtn = document.createElement('span');
       closeBtn.innerHTML = '&times;';
@@ -34,3 +35,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Remove the isMobile function as we now want zooming on all devices
