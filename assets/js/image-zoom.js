@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   const img = document.getElementById('zoomable-image');
-  if (img) {
+  if (img && !isMobile()) {
     img.addEventListener('click', function() {
       const overlay = document.createElement('div');
       overlay.className = 'zoom-overlay';
@@ -34,3 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+function isMobile() {
+  return window.innerWidth <= 768;
+}
