@@ -99,181 +99,154 @@ document.addEventListener('DOMContentLoaded', function() {
   const ctx = canvas.getContext('2d');
   const closeBtn = document.querySelector('.close-btn');
   const storymapUrl = '';
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-  const view = (() => {
-    const matrix = [1, 0, 0, 1, 0, 0];
-    let m = matrix;
-    let scale = 1;
-    let ctx;
-    const pos = { x: 0, y: 0 };
-    let dirty = true;
-    const API = {
-      set context(_ctx) { ctx = _ctx; dirty = true },
-      apply() {
-        if (dirty) { this.update() }
-        ctx.setTransform(m[0], m[1], m[2], m[3], m[4], m[5])
-      },
-      get scale() { return scale },
-      get position() { return pos },
-      isDirty() { return dirty },
-      update() {
-        dirty = false;
-        m[3] = m[0] = scale;
-        m[2] = m[1] = 0;
-        m[4] = pos.x;
-        m[5] = pos.y;
-      },
-      pan(amount) {
-        if (dirty) { this.update() }
-        pos.x += amount.x;
-        pos.y += amount.y;
-        dirty = true;
-      },
-      scaleAt(at, amount) {
-        if (dirty) { this.update() }
-        scale *= amount;
-        pos.x = at.x - (at.x - pos.x) * amount;
-        pos.y = at.y - (at.y - pos.y) * amount;
-        dirty = true;
-      },
-      reset() {
-        scale = 1;
-        pos.x = 0;
-        pos.y = 0;
-        dirty = true;
-      },
-      fitToExtent(imgWidth, imgHeight, canvasWidth, canvasHeight) {
-        const scaleX = canvasWidth / imgWidth;
-        const scaleY = canvasHeight / imgHeight;
-        scale = Math.min(scaleX, scaleY);
-        pos.x = (canvasWidth - imgWidth * scale) / 2;
-        pos.y = (canvasHeight - imgHeight * scale) / 2;
-        dirty = true;
-      }
-    };
-    return API;
-  })();
-
-  function fitImageToCanvas(imgWidth, imgHeight) {
-    const canvasWidth = window.innerWidth;
-    const canvasHeight = window.innerHeight;
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-    view.fitToExtent(imgWidth, imgHeight, canvasWidth, canvasHeight);
-  }
-
-  img.onclick = function() {
-    if (storymapUrl) {
-      window.open(storymapUrl, '_blank', 'noopener,noreferrer');
-    } else {
-      popup.style.display = 'block';
-      const fullSizeImg = new Image();
-      fullSizeImg.onload = function() {
-        canvas.width = fullSizeImg.width;
-        canvas.height = fullSizeImg.height;
-        ctx.drawImage(fullSizeImg, 0, 0);
-
-        view.context = ctx;
-        fitImageToCanvas(fullSizeImg.width, fullSizeImg.height);
-        drawCanvas();
+  if (isMobile) {
+    console.log('Mobile device detected, initializing PinchZoom');
+    new PinchZoom.default(img, {
+      draggableUnzoomed: false,
+      lockDragAxis: true,
+      setOffsetsOnce: true,
+      use2d: true,
+      minZoom: 1,
+      maxZoom: 4,
+      zoomOutFactor: 1.3,
+      tapZoomFactor: 2,
+    });
+  } else {
+    console.log('Desktop device detected, using custom zoom functionality');
+    const view = (() => {
+      const matrix = [1, 0, 0, 1, 0, 0];
+      let m = matrix;
+      let scale = 1;
+      let ctx;
+      const pos = { x: 0, y: 0 };
+      let dirty = true;
+      const API = {
+        set context(_ctx) { ctx = _ctx; dirty = true },
+        apply() {
+          if (dirty) { this.update() }
+          ctx.setTransform(m[0], m[1], m[2], m[3], m[4], m[5])
+        },
+        get scale() { return scale },
+        get position() { return pos },
+        isDirty() { return dirty },
+        update() {
+          dirty = false;
+          m[3] = m[0] = scale;
+          m[2] = m[1] = 0;
+          m[4] = pos.x;
+          m[5] = pos.y;
+        },
+        pan(amount) {
+          if (dirty) { this.update() }
+          pos.x += amount.x;
+          pos.y += amount.y;
+          dirty = true;
+        },
+        scaleAt(at, amount) {
+          if (dirty) { this.update() }
+          scale *= amount;
+          pos.x = at.x - (at.x - pos.x) * amount;
+          pos.y = at.y - (at.y - pos.y) * amount;
+          dirty = true;
+        },
+        reset() {
+          scale = 1;
+          pos.x = 0;
+          pos.y = 0;
+          dirty = true;
+        },
+        fitToExtent(imgWidth, imgHeight, canvasWidth, canvasHeight) {
+          const scaleX = canvasWidth / imgWidth;
+          const scaleY = canvasHeight / imgHeight;
+          scale = Math.min(scaleX, scaleY);
+          pos.x = (canvasWidth - imgWidth * scale) / 2;
+          pos.y = (canvasHeight - imgHeight * scale) / 2;
+          dirty = true;
+        }
       };
-      fullSizeImg.src = img.dataset.fullImage;
+      return API;
+    })();
+
+    function fitImageToCanvas(imgWidth, imgHeight) {
+      const canvasWidth = window.innerWidth;
+      const canvasHeight = window.innerHeight;
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      view.fitToExtent(imgWidth, imgHeight, canvasWidth, canvasHeight);
     }
-  }
 
-  closeBtn.onclick = function() {
-    popup.style.display = 'none';
-  }
+    img.onclick = function() {
+      if (storymapUrl) {
+        window.open(storymapUrl, '_blank', 'noopener,noreferrer');
+      } else {
+        popup.style.display = 'block';
+        const fullSizeImg = new Image();
+        fullSizeImg.onload = function() {
+          canvas.width = fullSizeImg.width;
+          canvas.height = fullSizeImg.height;
+          ctx.drawImage(fullSizeImg, 0, 0);
 
-  function drawCanvas() {
-    if (view.isDirty()) {
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      view.apply();
-      ctx.drawImage(img, 0, 0);
+          view.context = ctx;
+          fitImageToCanvas(fullSizeImg.width, fullSizeImg.height);
+          drawCanvas();
+        };
+        fullSizeImg.src = img.dataset.fullImage;
+      }
     }
-    requestAnimationFrame(drawCanvas);
-  }
 
-  canvas.addEventListener("mousemove", mouseEvent, {passive: true});
-  canvas.addEventListener("mousedown", mouseEvent, {passive: true});
-  canvas.addEventListener("mouseup", mouseEvent, {passive: true});
-  canvas.addEventListener("mouseout", mouseEvent, {passive: true});
-  canvas.addEventListener("wheel", mouseWheelEvent, {passive: false});
-
-  // Touch event listeners for mobile
-  canvas.addEventListener("touchstart", touchStart, {passive: false});
-  canvas.addEventListener("touchmove", touchMove, {passive: false});
-  canvas.addEventListener("touchend", touchEnd, {passive: true});
-
-  const mouse = {x: 0, y: 0, oldX: 0, oldY: 0, button: false};
-  let touchStartDistance = 0;
-
-  function mouseEvent(event) {
-    if (event.type === "mousedown") { mouse.button = true }
-    if (event.type === "mouseup" || event.type === "mouseout") { mouse.button = false }
-    mouse.oldX = mouse.x;
-    mouse.oldY = mouse.y;
-    mouse.x = event.offsetX;
-    mouse.y = event.offsetY
-    if(mouse.button) {
-      view.pan({x: mouse.x - mouse.oldX, y: mouse.y - mouse.oldY});
+    closeBtn.onclick = function() {
+      popup.style.display = 'none';
     }
-  }
 
-  function mouseWheelEvent(event) {
-    const x = event.offsetX;
-    const y = event.offsetY;
-    if (event.deltaY < 0) {
-      view.scaleAt({x, y}, 1.1);
-    } else {
-      view.scaleAt({x, y}, 1 / 1.1);
+    function drawCanvas() {
+      if (view.isDirty()) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        view.apply();
+        ctx.drawImage(img, 0, 0);
+      }
+      requestAnimationFrame(drawCanvas);
     }
-    event.preventDefault();
-  }
 
-  function touchStart(event) {
-    if (event.touches.length === 2) {
-      touchStartDistance = Math.hypot(
-        event.touches[0].pageX - event.touches[1].pageX,
-        event.touches[0].pageY - event.touches[1].pageY
-      );
-    }
-    event.preventDefault();
-  }
+    canvas.addEventListener("mousemove", mouseEvent, {passive: true});
+    canvas.addEventListener("mousedown", mouseEvent, {passive: true});
+    canvas.addEventListener("mouseup", mouseEvent, {passive: true});
+    canvas.addEventListener("mouseout", mouseEvent, {passive: true});
+    canvas.addEventListener("wheel", mouseWheelEvent, {passive: false});
 
-  function touchMove(event) {
-    if (event.touches.length === 1) {
-      const touch = event.touches[0];
-      view.pan({x: touch.pageX - mouse.x, y: touch.pageY - mouse.y});
-      mouse.x = touch.pageX;
-      mouse.y = touch.pageY;
-    } else if (event.touches.length === 2) {
-      const currentDistance = Math.hypot(
-        event.touches[0].pageX - event.touches[1].pageX,
-        event.touches[0].pageY - event.touches[1].pageY
-      );
-      const scale = currentDistance / touchStartDistance;
-      const centerX = (event.touches[0].pageX + event.touches[1].pageX) / 2;
-      const centerY = (event.touches[0].pageY + event.touches[1].pageY) / 2;
-      view.scaleAt({x: centerX, y: centerY}, scale);
-      touchStartDistance = currentDistance;
-    }
-    event.preventDefault();
-  }
+    const mouse = {x: 0, y: 0, oldX: 0, oldY: 0, button: false};
 
-  function touchEnd(event) {
-    // Reset touch start distance when all fingers are lifted
-    if (event.touches.length === 0) {
-      touchStartDistance = 0;
+    function mouseEvent(event) {
+      if (event.type === "mousedown") { mouse.button = true }
+      if (event.type === "mouseup" || event.type === "mouseout") { mouse.button = false }
+      mouse.oldX = mouse.x;
+      mouse.oldY = mouse.y;
+      mouse.x = event.offsetX;
+      mouse.y = event.offsetY
+      if(mouse.button) {
+        view.pan({x: mouse.x - mouse.oldX, y: mouse.y - mouse.oldY});
+      }
     }
-  }
 
-  window.addEventListener('resize', function() {
-    if (popup.style.display === 'block') {
-      fitImageToCanvas(img.naturalWidth, img.naturalHeight);
+    function mouseWheelEvent(event) {
+      const x = event.offsetX;
+      const y = event.offsetY;
+      if (event.deltaY < 0) {
+        view.scaleAt({x, y}, 1.1);
+      } else {
+        view.scaleAt({x, y}, 1 / 1.1);
+      }
+      event.preventDefault();
     }
-  });
+
+    window.addEventListener('resize', function() {
+      if (popup.style.display === 'block') {
+        fitImageToCanvas(img.naturalWidth, img.naturalHeight);
+      }
+    });
+  }
 });
 </script>
       </main>
@@ -283,6 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <!-- Right sidebar content -->
     </aside>
   </div>
-<script src="https://unpkg.com/pinch-zoom-js@2.3.5/dist/pinch-zoom.umd.js"></script>
+  <script src="https://unpkg.com/pinch-zoom-js@2.3.5/dist/pinch-zoom.umd.js"></script>
+  <script src="/assets/js/image-zoom.js"></script>
 </body>
 </html>
