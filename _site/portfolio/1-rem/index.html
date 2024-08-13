@@ -58,7 +58,7 @@ to peak into.</p>
   </div>
 
   <div class="portfolio-image">
-    <img src="/assets/images/portfolio/Duggins_N_Contest.jpg" alt="Relative Elevation Map (REM)" id="zoomable-image" style="cursor: zoom-in;">
+    <img src="/assets/images/portfolio/Duggins_N_Contest.jpg" data-full-image="/assets/images/portfolio/Duggins_N_Contest.jpg" alt="Relative Elevation Map (REM)" id="zoomable-image" style="cursor: zoom-in;">
   </div>
 </article>
 
@@ -170,9 +170,14 @@ document.addEventListener('DOMContentLoaded', function() {
       window.open(storymapUrl, '_blank', 'noopener,noreferrer');
     } else {
       popup.style.display = 'block';
-      view.context = ctx;
-      fitImageToCanvas();
-      drawCanvas();
+      const fullSizeImg = new Image();
+      fullSizeImg.onload = function() {
+        img.src = fullSizeImg.src;
+        view.context = ctx;
+        fitImageToCanvas();
+        drawCanvas();
+      };
+      fullSizeImg.src = img.dataset.fullImage;
     }
   }
 

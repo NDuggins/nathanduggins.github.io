@@ -45,7 +45,7 @@
   </div>
 
   <div class="portfolio-image">
-    <img src="/assets/images/portfolio/abstractPaint_vert.JPG" alt="Test2" id="zoomable-image" style="cursor: zoom-in;">
+    <img src="/assets/images/portfolio/abstractPaint_vert.JPG" data-full-image="/assets/images/portfolio/abstractPaint_vert.JPG" alt="Test2" id="zoomable-image" style="cursor: zoom-in;">
   </div>
 </article>
 
@@ -157,9 +157,14 @@ document.addEventListener('DOMContentLoaded', function() {
       window.open(storymapUrl, '_blank', 'noopener,noreferrer');
     } else {
       popup.style.display = 'block';
-      view.context = ctx;
-      fitImageToCanvas();
-      drawCanvas();
+      const fullSizeImg = new Image();
+      fullSizeImg.onload = function() {
+        img.src = fullSizeImg.src;
+        view.context = ctx;
+        fitImageToCanvas();
+        drawCanvas();
+      };
+      fullSizeImg.src = img.dataset.fullImage;
     }
   }
 
