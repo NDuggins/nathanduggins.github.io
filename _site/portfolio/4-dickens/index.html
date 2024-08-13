@@ -154,12 +154,12 @@ document.addEventListener('DOMContentLoaded', function() {
     return API;
   })();
 
-  function fitImageToCanvas(imgWidth, imgHeight) {
+  function fitImageToCanvas() {
     const canvasWidth = window.innerWidth;
     const canvasHeight = window.innerHeight;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-    view.fitToExtent(imgWidth, imgHeight, canvasWidth, canvasHeight);
+    view.fitToExtent(img.naturalWidth, img.naturalHeight, canvasWidth, canvasHeight);
   }
 
   img.onclick = function() {
@@ -169,12 +169,9 @@ document.addEventListener('DOMContentLoaded', function() {
       popup.style.display = 'block';
       const fullSizeImg = new Image();
       fullSizeImg.onload = function() {
-        canvas.width = fullSizeImg.width;
-        canvas.height = fullSizeImg.height;
-        ctx.drawImage(fullSizeImg, 0, 0);
-
+        img.src = fullSizeImg.src;
         view.context = ctx;
-        fitImageToCanvas(fullSizeImg.width, fullSizeImg.height);
+        fitImageToCanvas();
         drawCanvas();
       };
       fullSizeImg.src = img.dataset.fullImage;
@@ -201,13 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
   canvas.addEventListener("mouseout", mouseEvent, {passive: true});
   canvas.addEventListener("wheel", mouseWheelEvent, {passive: false});
 
-  // Touch event listeners for mobile
-  canvas.addEventListener("touchstart", touchStart, {passive: false});
-  canvas.addEventListener("touchmove", touchMove, {passive: false});
-  canvas.addEventListener("touchend", touchEnd, {passive: true});
-
   const mouse = {x: 0, y: 0, oldX: 0, oldY: 0, button: false};
-  let touchStartDistance = 0;
 
   function mouseEvent(event) {
     if (event.type === "mousedown") { mouse.button = true }
@@ -232,46 +223,9 @@ document.addEventListener('DOMContentLoaded', function() {
     event.preventDefault();
   }
 
-  function touchStart(event) {
-    if (event.touches.length === 2) {
-      touchStartDistance = Math.hypot(
-        event.touches[0].pageX - event.touches[1].pageX,
-        event.touches[0].pageY - event.touches[1].pageY
-      );
-    }
-    event.preventDefault();
-  }
-
-  function touchMove(event) {
-    if (event.touches.length === 1) {
-      const touch = event.touches[0];
-      view.pan({x: touch.pageX - mouse.x, y: touch.pageY - mouse.y});
-      mouse.x = touch.pageX;
-      mouse.y = touch.pageY;
-    } else if (event.touches.length === 2) {
-      const currentDistance = Math.hypot(
-        event.touches[0].pageX - event.touches[1].pageX,
-        event.touches[0].pageY - event.touches[1].pageY
-      );
-      const scale = currentDistance / touchStartDistance;
-      const centerX = (event.touches[0].pageX + event.touches[1].pageX) / 2;
-      const centerY = (event.touches[0].pageY + event.touches[1].pageY) / 2;
-      view.scaleAt({x: centerX, y: centerY}, scale);
-      touchStartDistance = currentDistance;
-    }
-    event.preventDefault();
-  }
-
-  function touchEnd(event) {
-    // Reset touch start distance when all fingers are lifted
-    if (event.touches.length === 0) {
-      touchStartDistance = 0;
-    }
-  }
-
   window.addEventListener('resize', function() {
     if (popup.style.display === 'block') {
-      fitImageToCanvas(img.naturalWidth, img.naturalHeight);
+      fitImageToCanvas();
     }
   });
 });
