@@ -37,51 +37,235 @@
 </header>
 
       <main>
-        <div class="portfolio-description">
-  <h1>Test2</h1>
-  <p>Test2</p>
+        <article class="portfolio-item-page">
+  <div class="portfolio-description">
+    <h1>Test2</h1>
+    <p>Test2</p>
 
-</div>
-
-<div class="portfolio-image">
-  <img src="/assets/images/portfolio/abstractPaint_vert.JPG" alt="Test2" class="pswp-gallery__img">
-</div>
-
-<!-- PhotoSwipe container -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="pswp__bg"></div>
-  <div class="pswp__scroll-wrap">
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    <div class="pswp__ui pswp__ui--hidden">
-      <div class="pswp__top-bar">
-        <div class="pswp__counter"></div>
-        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-        <button class="pswp__button pswp__button--share" title="Share"></button>
-        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-        <div class="pswp__preloader">
-          <div class="pswp__preloader__icn">
-            <div class="pswp__preloader__cut">
-              <div class="pswp__preloader__donut"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-        <div class="pswp__share-tooltip"></div>
-      </div>
-      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
-      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
-      <div class="pswp__caption">
-        <div class="pswp__caption__center"></div>
-      </div>
-    </div>
   </div>
+
+  <div class="portfolio-image">
+    <img src="/assets/images/portfolio/abstractPaint_vert.JPG" data-full-image="/assets/images/portfolio/abstractPaint_vert.JPG" alt="Test2" id="zoomable-image" style="cursor: zoom-in;">
+  </div>
+</article>
+
+<div id="image-popup" class="popup">
+  <span class="close-btn">&times;</span>
+  <canvas id="popup-canvas"></canvas>
 </div>
+
+<style>
+  .popup {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.9);
+  }
+  #popup-canvas {
+    display: block;
+    margin: auto;
+  }
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const img = document.getElementById('zoomable-image');
+  const popup = document.getElementById('image-popup');
+  const canvas = document.getElementById('popup-canvas');
+  const ctx = canvas.getContext('2d');
+  const closeBtn = document.querySelector('.close-btn');
+  const storymapUrl = '';
+
+  const view = (() => {
+    const matrix = [1, 0, 0, 1, 0, 0];
+    let m = matrix;
+    let scale = 1;
+    let ctx;
+    const pos = { x: 0, y: 0 };
+    let dirty = true;
+    const API = {
+      set context(_ctx) { ctx = _ctx; dirty = true },
+      apply() {
+        if (dirty) { this.update() }
+        ctx.setTransform(m[0], m[1], m[2], m[3], m[4], m[5])
+      },
+      get scale() { return scale },
+      get position() { return pos },
+      isDirty() { return dirty },
+      update() {
+        dirty = false;
+        m[3] = m[0] = scale;
+        m[2] = m[1] = 0;
+        m[4] = pos.x;
+        m[5] = pos.y;
+      },
+      pan(amount) {
+        if (dirty) { this.update() }
+        pos.x += amount.x;
+        pos.y += amount.y;
+        dirty = true;
+      },
+      scaleAt(at, amount) {
+        if (dirty) { this.update() }
+        scale *= amount;
+        pos.x = at.x - (at.x - pos.x) * amount;
+        pos.y = at.y - (at.y - pos.y) * amount;
+        dirty = true;
+      },
+      reset() {
+        scale = 1;
+        pos.x = 0;
+        pos.y = 0;
+        dirty = true;
+      },
+      fitToExtent(imgWidth, imgHeight, canvasWidth, canvasHeight) {
+        const scaleX = canvasWidth / imgWidth;
+        const scaleY = canvasHeight / imgHeight;
+        scale = Math.min(scaleX, scaleY);
+        pos.x = (canvasWidth - imgWidth * scale) / 2;
+        pos.y = (canvasHeight - imgHeight * scale) / 2;
+        dirty = true;
+      }
+    };
+    return API;
+  })();
+
+  function fitImageToCanvas(imgWidth, imgHeight) {
+    const canvasWidth = window.innerWidth;
+    const canvasHeight = window.innerHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    view.fitToExtent(imgWidth, imgHeight, canvasWidth, canvasHeight);
+  }
+
+  img.onclick = function() {
+    if (storymapUrl) {
+      window.open(storymapUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      popup.style.display = 'block';
+      const fullSizeImg = new Image();
+      fullSizeImg.onload = function() {
+        canvas.width = fullSizeImg.width;
+        canvas.height = fullSizeImg.height;
+        ctx.drawImage(fullSizeImg, 0, 0);
+
+        view.context = ctx;
+        fitImageToCanvas(fullSizeImg.width, fullSizeImg.height);
+        drawCanvas();
+      };
+      fullSizeImg.src = img.dataset.fullImage;
+    }
+  }
+
+  closeBtn.onclick = function() {
+    popup.style.display = 'none';
+  }
+
+  function drawCanvas() {
+    if (view.isDirty()) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      view.apply();
+      ctx.drawImage(img, 0, 0);
+    }
+    requestAnimationFrame(drawCanvas);
+  }
+
+  canvas.addEventListener("mousemove", mouseEvent, {passive: true});
+  canvas.addEventListener("mousedown", mouseEvent, {passive: true});
+  canvas.addEventListener("mouseup", mouseEvent, {passive: true});
+  canvas.addEventListener("mouseout", mouseEvent, {passive: true});
+  canvas.addEventListener("wheel", mouseWheelEvent, {passive: false});
+
+  // Touch event listeners for mobile
+  canvas.addEventListener("touchstart", touchStart, {passive: false});
+  canvas.addEventListener("touchmove", touchMove, {passive: false});
+  canvas.addEventListener("touchend", touchEnd, {passive: true});
+
+  const mouse = {x: 0, y: 0, oldX: 0, oldY: 0, button: false};
+  let touchStartDistance = 0;
+
+  function mouseEvent(event) {
+    if (event.type === "mousedown") { mouse.button = true }
+    if (event.type === "mouseup" || event.type === "mouseout") { mouse.button = false }
+    mouse.oldX = mouse.x;
+    mouse.oldY = mouse.y;
+    mouse.x = event.offsetX;
+    mouse.y = event.offsetY
+    if(mouse.button) {
+      view.pan({x: mouse.x - mouse.oldX, y: mouse.y - mouse.oldY});
+    }
+  }
+
+  function mouseWheelEvent(event) {
+    const x = event.offsetX;
+    const y = event.offsetY;
+    if (event.deltaY < 0) {
+      view.scaleAt({x, y}, 1.1);
+    } else {
+      view.scaleAt({x, y}, 1 / 1.1);
+    }
+    event.preventDefault();
+  }
+
+  function touchStart(event) {
+    if (event.touches.length === 2) {
+      touchStartDistance = Math.hypot(
+        event.touches[0].pageX - event.touches[1].pageX,
+        event.touches[0].pageY - event.touches[1].pageY
+      );
+    }
+    event.preventDefault();
+  }
+
+  function touchMove(event) {
+    if (event.touches.length === 1) {
+      const touch = event.touches[0];
+      view.pan({x: touch.pageX - mouse.x, y: touch.pageY - mouse.y});
+      mouse.x = touch.pageX;
+      mouse.y = touch.pageY;
+    } else if (event.touches.length === 2) {
+      const currentDistance = Math.hypot(
+        event.touches[0].pageX - event.touches[1].pageX,
+        event.touches[0].pageY - event.touches[1].pageY
+      );
+      const scale = currentDistance / touchStartDistance;
+      const centerX = (event.touches[0].pageX + event.touches[1].pageX) / 2;
+      const centerY = (event.touches[0].pageY + event.touches[1].pageY) / 2;
+      view.scaleAt({x: centerX, y: centerY}, scale);
+      touchStartDistance = currentDistance;
+    }
+    event.preventDefault();
+  }
+
+  function touchEnd(event) {
+    // Reset touch start distance when all fingers are lifted
+    if (event.touches.length === 0) {
+      touchStartDistance = 0;
+    }
+  }
+
+  window.addEventListener('resize', function() {
+    if (popup.style.display === 'block') {
+      fitImageToCanvas(img.naturalWidth, img.naturalHeight);
+    }
+  });
+});
+</script>
       </main>
     </div>
 

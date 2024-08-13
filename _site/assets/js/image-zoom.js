@@ -1,33 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
   const img = document.getElementById('zoomable-image');
   if (img) {
-    console.log('Zoomable image found');
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    console.log('Is mobile device:', isMobile);
 
     if (isMobile) {
-      console.log('Initializing PinchZoom');
-      if (typeof PinchZoom === 'undefined') {
-        console.error('PinchZoom library not loaded');
-      } else {
-        try {
-          new PinchZoom.default(img, {
-            draggableUnzoomed: false,
-            lockDragAxis: true,
-            setOffsetsOnce: true,
-            use2d: true,
-            minZoom: 1,
-            maxZoom: 4,
-            zoomOutFactor: 1.3,
-            tapZoomFactor: 2,
-          });
-          console.log('PinchZoom initialized successfully');
-        } catch (error) {
-          console.error('Error initializing PinchZoom:', error);
-        }
-      }
+      // Mobile approach using PinchZoom.js
+      new PinchZoom.default(img, {
+        draggableUnzoomed: false,
+        lockDragAxis: true,
+        setOffsetsOnce: true,
+        use2d: true,
+        minZoom: 1,
+        maxZoom: 4,
+        zoomOutFactor: 1.3,
+        tapZoomFactor: 2,
+      });
     } else {
-      console.log('Using desktop zoom functionality');
       // Desktop approach (your existing code)
       img.addEventListener('click', function() {
         const overlay = document.createElement('div');
@@ -59,7 +47,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     }
-  } else {
-    console.log('No zoomable image found on this page');
   }
 });
