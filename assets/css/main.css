@@ -463,6 +463,17 @@ h4 {
     .portfolio-item:hover .portfolio-overlay {
         opacity: 1; /* Ensure overlay stays visible on hover */
     }
+
+    #zoomable-image {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .pinch-zoom-container {
+    width: 100% !important;
+    height: auto !important;
+    overflow: hidden;
+  }
 }
 
 @media screen and (max-width: 1024px) {
