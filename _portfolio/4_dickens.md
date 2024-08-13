@@ -1,9 +1,9 @@
 ---
 layout: portfolio_item
-title: St. Vrain Creek Flood Reconstruction
+title: Post-Flood Reconstruction Assessment
 thumbnail: /assets/images/portfolio/DickensLayout.jpg
 full_image: /assets/images/portfolio/DickensLayout.jpg
-short_description:
+short_description: Longmont, CO
 size: 
 ---
 
