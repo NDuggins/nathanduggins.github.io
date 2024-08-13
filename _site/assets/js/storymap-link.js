@@ -4,8 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const storymapUrl = zoomableImage.dataset.storymapUrl;
     if (storymapUrl) {
       zoomableImage.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.open(storymapUrl, '_blank', 'noopener,noreferrer');
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+          e.stopPropagation(); // Prevent the zoom overlay from opening
+          window.open(storymapUrl, '_blank', 'noopener,noreferrer');
+        }
       });
     }
   }

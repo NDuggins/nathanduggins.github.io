@@ -1,39 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
   const img = document.getElementById('zoomable-image');
   if (img) {
-    img.addEventListener('click', function() {
+    img.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const fullImage = this.getAttribute('data-full-image') || this.src;
+
+      // Create overlay
       const overlay = document.createElement('div');
       overlay.className = 'zoom-overlay';
 
+      // Create zoomed image
       const zoomedImg = document.createElement('img');
-      // Use the full-size image for zooming on both desktop and mobile
-      zoomedImg.src = this.dataset.fullImage || this.src;
+      zoomedImg.src = fullImage;
 
+      // Add close button
       const closeBtn = document.createElement('span');
       closeBtn.innerHTML = '&times;';
       closeBtn.className = 'close-btn';
 
+      // Append elements
       overlay.appendChild(zoomedImg);
       overlay.appendChild(closeBtn);
       document.body.appendChild(overlay);
 
-      overlay.style.display = 'block';
-
+      // Close overlay on button click or overlay click
       closeBtn.onclick = function() {
-        overlay.style.display = 'none';
         document.body.removeChild(overlay);
       }
-
-      zoomedImg.onclick = function(e) {
-        e.stopPropagation();
-      }
-
-      overlay.onclick = function() {
-        overlay.style.display = 'none';
-        document.body.removeChild(overlay);
+      overlay.onclick = function(e) {
+        if (e.target === overlay) {
+          document.body.removeChild(overlay);
+        }
       }
     });
   }
 });
-
-// Remove the isMobile function as we now want zooming on all devices
