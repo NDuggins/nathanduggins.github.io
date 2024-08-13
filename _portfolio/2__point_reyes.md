@@ -1,6 +1,6 @@
 ---
 layout: portfolio_item
-title: Point Reyes, CA
+title: Multispectral UAV Mapping
 static_thumbnail: /assets/images/portfolio/SlideStockImage.jpg
 video_thumbnail: /assets/images/portfolio/SlideSmallerVid2.mp4
 full_image: /assets/images/portfolio/SlideStorymapCover.jpg

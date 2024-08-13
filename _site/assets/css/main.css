@@ -463,15 +463,15 @@ h4 {
     .portfolio-item:hover .portfolio-overlay {
         opacity: 1; /* Ensure overlay stays visible on hover */
     }
-}
 
-@media screen and (max-width: 1024px) {
-    .portfolio-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    #zoomable-image {
+    max-width: 100%;
+    height: auto;
+  }
 
-    .portfolio-item.extra-wide {
-        grid-column: span 2;
-        aspect-ratio: 2 / 1;
-    }
+  .pinch-zoom-container {
+    width: 100% !important;
+    height: auto !important;
+    overflow: hidden;
+  }
 }
