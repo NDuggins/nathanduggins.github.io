@@ -433,6 +433,36 @@ h4 {
     .portfolio-item .static-thumbnail {
         display: block;
     }
+
+    .portfolio-item-page {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+    }
+
+    .portfolio-item-page .portfolio-image {
+        order: -1; /* This moves the image above the text */
+        margin-bottom: 20px;
+    }
+
+    .portfolio-item-page .portfolio-description {
+        width: 100%;
+    }
+
+    .portfolio-item-page .portfolio-image img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .portfolio-overlay {
+        opacity: 1; /* Make overlay always visible on mobile */
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+        opacity: 1; /* Ensure overlay stays visible on hover */
+    }
 }
 
 @media screen and (max-width: 1024px) {
