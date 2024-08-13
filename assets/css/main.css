@@ -392,7 +392,7 @@ h4 {
     .portfolio-thumbnail {
         width: 100%;
         height: 100%;
-        object-fit: contain; /* We're keeping 'cover', but you can experiment with 'contain' if you prefer */
+        object-fit: cover;
     }
 
     .portfolio-overlay {
@@ -400,16 +400,24 @@ h4 {
         top: 0;
         left: 0;
         right: 0;
-        background: rgba(0, 0, 0, 0.25); /* Adjusted for less darkening */
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
         color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
         padding: 10px;
-        opacity: 1;
-        pointer-events: none;
     }
 
     .portfolio-overlay h3 {
         margin: 0;
-        font-size: 0.75rem;
+        font-size: 1rem;
+    }
+
+    /* Hide short description on mobile */
+    .portfolio-overlay p {
+        display: none;
     }
 
     .portfolio-item:hover .portfolio-thumbnail {
@@ -424,28 +432,6 @@ h4 {
     /* Show static thumbnail for items with video */
     .portfolio-item .static-thumbnail {
         display: block;
-    }
-
-    /* Portfolio item page styles for mobile */
-    .portfolio-item-page {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 20px;
-    }
-
-    .portfolio-item-page .portfolio-image {
-        order: -1; /* This moves the image above the text */
-        margin-bottom: 20px;
-    }
-
-    .portfolio-item-page .portfolio-description {
-        width: 100%;
-    }
-
-    .portfolio-item-page .portfolio-image img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
     }
 }
 
