@@ -392,7 +392,7 @@ h4 {
     .portfolio-thumbnail {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* We're keeping this, but you can experiment with 'contain' if you prefer */
+        object-fit: contain; /* We're keeping 'cover', but you can experiment with 'contain' if you prefer */
     }
 
     .portfolio-overlay {
@@ -400,7 +400,7 @@ h4 {
         top: 0;
         left: 0;
         right: 0;
-        background: rgba(0, 0, 0, 0.5); /* Adjusted for less darkening */
+        background: rgba(0, 0, 0, 0.25); /* Adjusted for less darkening */
         color: white;
         padding: 10px;
         opacity: 1;
@@ -409,7 +409,7 @@ h4 {
 
     .portfolio-overlay h3 {
         margin: 0;
-        font-size: 1rem;
+        font-size: 0.75rem;
     }
 
     .portfolio-item:hover .portfolio-thumbnail {
