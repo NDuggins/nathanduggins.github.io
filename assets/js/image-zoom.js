@@ -4,11 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     img.addEventListener('click', function(e) {
       e.preventDefault();
 
-      // Check if an overlay already exists
-      if (document.querySelector('.zoom-overlay')) {
-        return;
-      }
-
       const fullImage = this.getAttribute('data-full-image') || this.src;
       const mapId = this.getAttribute('data-map-id');
 
@@ -50,18 +45,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.dispatchEvent(event);
       }
 
-      // Close overlay function
-      const closeOverlay = function() {
-        document.body.removeChild(overlay);
-      };
-
       // Close overlay on button click or overlay click
-      closeBtn.onclick = closeOverlay;
+      closeBtn.onclick = function() {
+        document.body.removeChild(overlay);
+      }
       overlay.onclick = function(e) {
         if (e.target === overlay) {
-          closeOverlay();
+          document.body.removeChild(overlay);
         }
-      };
+      }
     });
   }
 });
