@@ -364,10 +364,6 @@ h4 {
         background: rgba(0, 0, 0, 0.1);
     }
 
-    /* Hide short description on mobile */
-    .portfolio-overlay p {
-        display: none;
-    }
 
     .portfolio-item:hover .portfolio-thumbnail {
         transform: none;

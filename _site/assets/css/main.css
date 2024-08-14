@@ -361,8 +361,9 @@ h4 {
 
     .portfolio-overlay {
         opacity: 1;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.1);
     }
+
 
     .portfolio-item:hover .portfolio-thumbnail {
         transform: none;
