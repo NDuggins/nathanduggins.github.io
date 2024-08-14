@@ -26,7 +26,51 @@ document.addEventListener('DOMContentLoaded', function() {
                 // If it's an image, create a zoomed image
                 const zoomedImg = document.createElement('img');
                 zoomedImg.src = fullImage;
+                zoomedImg.className = 'zoomable';
                 contentContainer.appendChild(zoomedImg);
+
+                // Add zoom functionality
+                let scale = 1;
+                let panning = false;
+                let pointX = 0;
+                let pointY = 0;
+                let start = { x: 0, y: 0 };
+
+                function setTransform() {
+                    zoomedImg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+                }
+
+                zoomedImg.onmousedown = function(e) {
+                    e.preventDefault();
+                    start = { x: e.clientX - pointX, y: e.clientY - pointY };
+                    panning = true;
+                }
+
+                zoomedImg.onmouseup = function(e) {
+                    panning = false;
+                }
+
+                zoomedImg.onmousemove = function(e) {
+                    e.preventDefault();
+                    if (!panning) {
+                        return;
+                    }
+                    pointX = (e.clientX - start.x);
+                    pointY = (e.clientY - start.y);
+                    setTransform();
+                }
+
+                zoomedImg.onwheel = function(e) {
+                    e.preventDefault();
+                    let xs = (e.clientX - pointX) / scale;
+                    let ys = (e.clientY - pointY) / scale;
+                    let delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+                    (delta > 0) ? (scale *= 1.2) : (scale /= 1.2);
+                    pointX = e.clientX - xs * scale;
+                    pointY = e.clientY - ys * scale;
+
+                    setTransform();
+                }
             }
 
             // Add close button
