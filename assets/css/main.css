@@ -275,7 +275,6 @@ h4 {
     height: auto;
 }
 
-/* ===== IMAGE POPUP STYLES ===== */
 .zoom-overlay {
     display: none;
     position: fixed;
@@ -285,17 +284,16 @@ h4 {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
-    overflow: auto;
+    overflow: hidden;
 }
 
-.zoom-overlay img {
-    display: block;
-    max-width: 90%;
-    max-height: 90%;
-    margin: auto;
+.zoom-overlay .zoomed-image {
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
-    object-fit: contain;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: none;
+    max-height: none;
 }
 
 .zoom-overlay .close-btn {
@@ -427,6 +425,12 @@ h4 {
         width: 100%;
         height: auto;
         object-fit: contain;
+    }
+
+    .zoom-overlay .close-btn {
+        top: 10px;
+        right: 20px;
+        font-size: 30px;
     }
 
     .zoom-overlay .close-btn {
