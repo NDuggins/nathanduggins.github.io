@@ -54,9 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
       zoomedImg.addEventListener('touchstart', function(e) {
         e.preventDefault();
       });
-
-      // Reposition on window resize
-      window.addEventListener('resize', positionImage);
     });
   }
 });
