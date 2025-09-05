@@ -13,12 +13,14 @@ layout: default
          src="{{ page.thumbnail }}"
          alt="{{ page.title }}"
          data-full-image="{{ page.full_image | default: page.thumbnail }}"
-         {% if page.map_id %}data-map-id="{{ page.map_id }}"{% endif %}>
+         {% if page.storymap_url %}data-storymap-url="{{ page.storymap_url }}"{% endif %}>
   </div>
+</div>
 
-  {% if page.map_id %}
-  <div id="map-container" data-map-id="{{ page.map_id }}"></div>
-  {% endif %}
+<!-- Popup structure for zoom functionality -->
+<div id="image-popup" class="popup">
+  <span class="close-btn">&times;</span>
+  <canvas id="popup-canvas"></canvas>
 </div>
 
 <style>
@@ -45,6 +47,10 @@ layout: default
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+    z-index: 10000;
+  }
+  .close-btn:hover {
+    color: #bbb;
   }
 </style>
 
@@ -55,8 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const canvas = document.getElementById('popup-canvas');
   const ctx = canvas.getContext('2d');
   const closeBtn = document.querySelector('.close-btn');
-  const storymapUrl = '{{ page.storymap_url }}';
+  
+  // Check if this item has a storymap URL
+  const storymapUrl = img.dataset.storymapUrl;
 
+  // View transformation system for zoom/pan
   const view = (() => {
     const matrix = [1, 0, 0, 1, 0, 0];
     let m = matrix;
@@ -111,50 +120,57 @@ document.addEventListener('DOMContentLoaded', function() {
     return API;
   })();
 
-  function fitImageToCanvas() {
+  function fitImageToCanvas(fullSizeImg) {
     const canvasWidth = window.innerWidth;
     const canvasHeight = window.innerHeight;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-    view.fitToExtent(img.naturalWidth, img.naturalHeight, canvasWidth, canvasHeight);
+    view.fitToExtent(fullSizeImg.naturalWidth, fullSizeImg.naturalHeight, canvasWidth, canvasHeight);
   }
 
-  img.onclick = function() {
-    if (storymapUrl) {
-      window.open(storymapUrl, '_blank', 'noopener,noreferrer');
-    } else {
-      popup.style.display = 'block';
-      const fullSizeImg = new Image();
-      fullSizeImg.onload = function() {
-        img.src = fullSizeImg.src;
-        view.context = ctx;
-        fitImageToCanvas();
-        drawCanvas();
-      };
-      fullSizeImg.src = img.dataset.fullImage;
-    }
-  }
-
-  closeBtn.onclick = function() {
-    popup.style.display = 'none';
-  }
-
-  function drawCanvas() {
+  function drawCanvas(fullSizeImg) {
     if (view.isDirty()) {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       view.apply();
-      ctx.drawImage(img, 0, 0);
+      ctx.drawImage(fullSizeImg, 0, 0);
     }
-    requestAnimationFrame(drawCanvas);
+    requestAnimationFrame(() => drawCanvas(fullSizeImg));
   }
 
-  canvas.addEventListener("mousemove", mouseEvent, {passive: true});
-  canvas.addEventListener("mousedown", mouseEvent, {passive: true});
-  canvas.addEventListener("mouseup", mouseEvent, {passive: true});
-  canvas.addEventListener("mouseout", mouseEvent, {passive: true});
-  canvas.addEventListener("wheel", mouseWheelEvent, {passive: false});
+  // Main click handler
+  img.onclick = function() {
+    // If this item has a storymap URL, open it instead of showing popup
+    if (storymapUrl) {
+      window.open(storymapUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
 
+    // Otherwise, show the zoom popup
+    popup.style.display = 'block';
+    
+    const fullSizeImg = new Image();
+    fullSizeImg.onload = function() {
+      view.context = ctx;
+      fitImageToCanvas(fullSizeImg);
+      drawCanvas(fullSizeImg);
+    };
+    fullSizeImg.src = img.dataset.fullImage;
+  }
+
+  // Close popup
+  closeBtn.onclick = function() {
+    popup.style.display = 'none';
+  }
+
+  // Close popup when clicking outside the image
+  popup.onclick = function(e) {
+    if (e.target === popup) {
+      popup.style.display = 'none';
+    }
+  }
+
+  // Mouse and wheel events for zoom/pan
   const mouse = {x: 0, y: 0, oldX: 0, oldY: 0, button: false};
 
   function mouseEvent(event) {
@@ -180,9 +196,20 @@ document.addEventListener('DOMContentLoaded', function() {
     event.preventDefault();
   }
 
+  canvas.addEventListener("mousemove", mouseEvent, {passive: true});
+  canvas.addEventListener("mousedown", mouseEvent, {passive: true});
+  canvas.addEventListener("mouseup", mouseEvent, {passive: true});
+  canvas.addEventListener("mouseout", mouseEvent, {passive: true});
+  canvas.addEventListener("wheel", mouseWheelEvent, {passive: false});
+
+  // Handle window resize
   window.addEventListener('resize', function() {
     if (popup.style.display === 'block') {
-      fitImageToCanvas();
+      const fullSizeImg = new Image();
+      fullSizeImg.onload = function() {
+        fitImageToCanvas(fullSizeImg);
+      };
+      fullSizeImg.src = img.dataset.fullImage;
     }
   });
 });
