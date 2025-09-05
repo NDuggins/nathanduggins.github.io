@@ -1,3 +1,4 @@
+/*
 document.addEventListener('DOMContentLoaded', function() {
   const zoomableImage = document.getElementById('zoomable-image');
   if (zoomableImage) {
@@ -13,3 +14,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+*/
