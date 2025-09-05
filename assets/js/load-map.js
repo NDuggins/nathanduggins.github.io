@@ -1,3 +1,4 @@
+/*
 function loadMap() {
   const mapContainer = document.getElementById('map-container');
   if (mapContainer) {
@@ -10,3 +11,4 @@ function loadMap() {
 
 document.addEventListener('DOMContentLoaded', loadMap);
 document.addEventListener('mapcontainer-created', loadMap);
+*/
