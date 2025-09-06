@@ -26,13 +26,6 @@ layout: default
 {% assign next_item = portfolio_items[next_index] %}
 
 <div class="portfolio-item-page">
-  <!-- Left Arrow -->
-  <div class="portfolio-nav-arrow left-arrow">
-    <a href="{{ prev_item.url }}" title="{{ prev_item.title }}">
-      <span>&lt;</span>
-    </a>
-  </div>
-
   <div class="portfolio-content">
     <div class="portfolio-description">
       <h1>{{ page.title }}</h1>
@@ -56,13 +49,19 @@ layout: default
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Right Arrow -->
-  <div class="portfolio-nav-arrow right-arrow">
-    <a href="{{ next_item.url }}" title="{{ next_item.title }}">
-      <span>&gt;</span>
-    </a>
-  </div>
+<!-- Navigation arrows positioned fixed -->
+<div class="portfolio-nav-arrow left-arrow">
+  <a href="{{ prev_item.url }}" title="{{ prev_item.title }}">
+    <span>&lt;</span>
+  </a>
+</div>
+
+<div class="portfolio-nav-arrow right-arrow">
+  <a href="{{ next_item.url }}" title="{{ next_item.title }}">
+    <span>&gt;</span>
+  </a>
 </div>
 
 <!-- Popup structure for zoom functionality -->
