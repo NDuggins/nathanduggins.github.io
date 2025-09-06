@@ -325,7 +325,7 @@ h4 {
     justify-content: center;
     color: white;
     text-decoration: none;
-    font-size: 72px;
+    font-size: 49px;
     font-weight: 100;
     opacity: 0.6;
     transition: opacity 0.3s ease;
@@ -347,7 +347,6 @@ h4 {
 .portfolio-nav span {
     display: block;
     line-height: 1;
-    font-size: 48px;
 }
 
 /* Hide arrows on mobile for better UX */
