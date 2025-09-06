@@ -14,15 +14,6 @@ layout: default
          alt="{{ page.title }}"
          data-full-image="{{ page.full_image | default: page.thumbnail }}"
          {% if page.storymap_url %}data-storymap-url="{{ page.storymap_url }}"{% endif %}>
-    
-    <!-- Instructional text -->
-    <div class="image-instruction">
-      {% if page.storymap_url %}
-        (Click to view story map)
-      {% else %}
-        (Click to view full-resolution image)
-      {% endif %}
-    </div>
   </div>
 </div>
 
@@ -33,40 +24,6 @@ layout: default
 </div>
 
 <style>
-  .portfolio-item-page {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    padding: 40px;
-    margin: 0 auto;
-  }
-
-  .portfolio-description {
-    flex: 1;
-  }
-
-  .portfolio-image {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .portfolio-image img {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-    cursor: pointer;
-  }
-
-  .image-instruction {
-    color: white;
-    font-size: 14px;
-    margin-top: 10px;
-    text-align: center;
-  }
-
   .popup {
     display: none;
     position: fixed;
@@ -78,12 +35,10 @@ layout: default
     overflow: hidden;
     background-color: rgba(0,0,0,0.9);
   }
-  
   #popup-canvas {
     display: block;
     margin: auto;
   }
-  
   .close-btn {
     position: absolute;
     top: 15px;
@@ -94,34 +49,8 @@ layout: default
     cursor: pointer;
     z-index: 10000;
   }
-  
   .close-btn:hover {
     color: #bbb;
-  }
-
-  /* Mobile responsive */
-  @media (max-width: 768px) {
-    .portfolio-item-page {
-      flex-direction: column;
-      align-items: stretch;
-      padding: 20px;
-    }
-
-    .portfolio-description {
-      order: 2;
-      width: 100%;
-    }
-
-    .portfolio-image {
-      order: 1;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    .portfolio-image img {
-      width: 100%;
-      height: auto;
-    }
   }
 </style>
 
