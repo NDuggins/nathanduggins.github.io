@@ -313,6 +313,59 @@ h4 {
     text-decoration: none;
 }
 
+/* ===== PORTFOLIO NAVIGATION ARROWS ===== */
+.portfolio-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 36px;
+    font-weight: 100;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    z-index: 500;
+}
+
+.portfolio-nav:hover {
+    opacity: 1;
+}
+
+.portfolio-nav-prev {
+    left: 20px;
+}
+
+.portfolio-nav-next {
+    right: 20px;
+}
+
+.portfolio-nav span {
+    display: block;
+    line-height: 1;
+}
+
+/* Hide arrows on mobile for better UX */
+@media (max-width: 768px) {
+    .portfolio-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+    }
+    
+    .portfolio-nav-prev {
+        left: 10px;
+    }
+    
+    .portfolio-nav-next {
+        right: 10px;
+    }
+}
+
 /* ===== RESPONSIVE STYLES ===== */
 @media (max-width: 768px) {
     body {
