@@ -167,6 +167,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const ctx = canvas.getContext('2d');
   const closeBtn = document.querySelector('.close-btn');
   
+  // Store original viewport content
+  let viewport = document.querySelector('meta[name="viewport"]');
+  const originalViewport = viewport ? viewport.content : '';
+  
   // Check if this item has a storymap URL
   const storymapUrl = img.dataset.storymapUrl;
 
@@ -254,6 +258,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Otherwise, show the zoom popup
     popup.style.display = 'block';
     
+    // Prevent page zoom when popup is open
+    if (viewport) {
+      viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+    }
+    
     const fullSizeImg = new Image();
     fullSizeImg.onload = function() {
       view.context = ctx;
@@ -264,18 +273,24 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Close popup
-  closeBtn.onclick = function() {
+  function closePopup() {
     popup.style.display = 'none';
+    // Restore original viewport settings
+    if (viewport) {
+      viewport.content = originalViewport;
+    }
   }
+
+  closeBtn.onclick = closePopup;
 
   // Close popup when clicking outside the image
   popup.onclick = function(e) {
     if (e.target === popup) {
-      popup.style.display = 'none';
+      closePopup();
     }
   }
 
-  // Mouse and wheel events for zoom/pan
+  // Mouse events for desktop
   const mouse = {x: 0, y: 0, oldX: 0, oldY: 0, button: false};
 
   function mouseEvent(event) {
@@ -301,11 +316,76 @@ document.addEventListener('DOMContentLoaded', function() {
     event.preventDefault();
   }
 
+  // Touch events for mobile
+  let touches = [];
+  let lastTouchDistance = 0;
+
+  function getTouchDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function getTouchCenter(touches) {
+    return {
+      x: (touches[0].clientX + touches[1].clientX) / 2,
+      y: (touches[0].clientY + touches[1].clientY) / 2
+    };
+  }
+
+  function touchHandler(event) {
+    event.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    
+    if (event.type === 'touchstart') {
+      if (event.touches.length === 1) {
+        touches = [{
+          x: event.touches[0].clientX - rect.left,
+          y: event.touches[0].clientY - rect.top
+        }];
+      } else if (event.touches.length === 2) {
+        lastTouchDistance = getTouchDistance(event.touches);
+      }
+    } else if (event.type === 'touchmove') {
+      if (event.touches.length === 1 && touches.length === 1) {
+        // Single finger pan
+        const x = event.touches[0].clientX - rect.left;
+        const y = event.touches[0].clientY - rect.top;
+        view.pan({
+          x: x - touches[0].x,
+          y: y - touches[0].y
+        });
+        touches[0] = {x, y};
+      } else if (event.touches.length === 2) {
+        // Pinch zoom
+        const currentDistance = getTouchDistance(event.touches);
+        const center = getTouchCenter(event.touches);
+        const scale = currentDistance / lastTouchDistance;
+        
+        view.scaleAt({
+          x: center.x - rect.left,
+          y: center.y - rect.top
+        }, scale);
+        
+        lastTouchDistance = currentDistance;
+      }
+    } else if (event.type === 'touchend') {
+      touches = [];
+      lastTouchDistance = 0;
+    }
+  }
+
+  // Add event listeners
   canvas.addEventListener("mousemove", mouseEvent, {passive: true});
   canvas.addEventListener("mousedown", mouseEvent, {passive: true});
   canvas.addEventListener("mouseup", mouseEvent, {passive: true});
   canvas.addEventListener("mouseout", mouseEvent, {passive: true});
   canvas.addEventListener("wheel", mouseWheelEvent, {passive: false});
+  
+  // Touch events
+  canvas.addEventListener("touchstart", touchHandler, {passive: false});
+  canvas.addEventListener("touchmove", touchHandler, {passive: false});
+  canvas.addEventListener("touchend", touchHandler, {passive: false});
 
   // Handle window resize
   window.addEventListener('resize', function() {
