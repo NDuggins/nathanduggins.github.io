@@ -347,6 +347,7 @@ h4 {
 .portfolio-nav span {
     display: block;
     line-height: 1;
+    font-size: 47px;
 }
 
 /* Hide arrows on mobile for better UX */
