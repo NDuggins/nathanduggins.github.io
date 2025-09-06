@@ -2,6 +2,40 @@
 layout: default
 ---
 
+<!-- Portfolio Navigation Arrows -->
+{% assign sorted_portfolio = site.portfolio | sort: 'title' %}
+{% assign current_index = nil %}
+{% for item in sorted_portfolio %}
+  {% if item.id == page.id %}
+    {% assign current_index = forloop.index0 %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if current_index %}
+  {% assign prev_index = current_index | minus: 1 %}
+  {% assign next_index = current_index | plus: 1 %}
+  
+  {% if prev_index < 0 %}
+    {% assign prev_index = sorted_portfolio.size | minus: 1 %}
+  {% endif %}
+  
+  {% if next_index >= sorted_portfolio.size %}
+    {% assign next_index = 0 %}
+  {% endif %}
+  
+  {% assign prev_item = sorted_portfolio[prev_index] %}
+  {% assign next_item = sorted_portfolio[next_index] %}
+  
+  <a href="{{ prev_item.url }}" class="portfolio-nav portfolio-nav-prev" title="{{ prev_item.title }}">
+    <span>‹</span>
+  </a>
+  
+  <a href="{{ next_item.url }}" class="portfolio-nav portfolio-nav-next" title="{{ next_item.title }}">
+    <span>›</span>
+  </a>
+{% endif %}
+    
 <div class="portfolio-item-page">
   <div class="portfolio-description">
     <h1>{{ page.title }}</h1>
