@@ -325,7 +325,7 @@ h4 {
     justify-content: center;
     color: white;
     text-decoration: none;
-    font-size: 60px; 
+    /*font-size: 60px; change in nav span instead*/
     font-weight: 100;
     opacity: 0.6;
     transition: opacity 0.3s ease;
