@@ -257,6 +257,53 @@ h4 {
     object-fit: contain;
 }
 
+
+
+
+
+/*####################ADDED TO ATTEMPT GRID FIX - DELETE AND REVERT TO OLD IF NEEDED###################*/
+
+/* ADD these rules to your existing main.css file */
+/* Place them after your existing .portfolio-item rules */
+
+/* Explicit positioning for current portfolio items */
+.portfolio-item:nth-child(1) { /* REM - extra-wide */
+    grid-column: 1 / 4;  /* spans columns 1-3 */
+    grid-row: 1;
+}
+
+.portfolio-item:nth-child(2) { /* Point Reyes - tall */
+    grid-column: 4;
+    grid-row: 1 / 3;  /* spans rows 1-2 */
+}
+
+.portfolio-item:nth-child(3) { /* Dickens - regular */
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.portfolio-item:nth-child(4) { /* Test3 - wide */
+    grid-column: 2 / 4;  /* spans columns 2-3 */
+    grid-row: 2;
+}
+
+/* Update your existing .portfolio-thumbnail rule to add these properties */
+.portfolio-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;  /* ADD this line */
+    transition: transform 0.2s ease;
+    will-change: transform;
+}
+/* ###################################################################################### */
+
+
+
+
+
+
+
 /* ===== MAP CONTAINER ===== */
 #map-container {
     width: 100%;
