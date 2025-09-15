@@ -158,36 +158,44 @@ h4 {
     background-color: #f00;
 }
 
-/* Portfolio Grid - Clean Solution */
+/* Portfolio Grid - Perfect Square Solution */
 .portfolio-grid {
+    --gap: 10px;
+    --columns: 4;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    gap: var(--gap);
     padding: 20px;
-    grid-auto-rows: 200px; /* Set a fixed row height */
 }
 
 .portfolio-item {
     position: relative;
     overflow: hidden;
-    grid-column: span 1;
-    grid-row: span 1;
-    /* Each item fills its grid area completely */
+    /* Default to 1x1 square */
+    aspect-ratio: 1 / 1;
 }
 
 .portfolio-item.wide {
     grid-column: span 2;
-    /* Spans 2 columns, 1 row */
+    aspect-ratio: 2 / 1;
 }
 
 .portfolio-item.extra-wide {
     grid-column: span 3;
-    /* Spans 3 columns, 1 row */
+    aspect-ratio: 3 / 1;
 }
 
 .portfolio-item.tall {
     grid-row: span 2;
-    /* Spans 1 column, 2 rows */
+    /* Calculate exact aspect ratio for 2 rows + 1 gap */
+    aspect-ratio: calc(1 / (2 + var(--gap) / 100%));
+}
+
+/* Alternative approach for tall items - more reliable */
+@supports not (aspect-ratio: calc(1 / 2)) {
+    .portfolio-item.tall {
+        aspect-ratio: 1 / 2.048; /* Approximation that works well */
+    }
 }
 
 /* Keep the rest of your portfolio styles the same */
@@ -232,19 +240,13 @@ h4 {
     object-fit: cover;
 }
 
-/* Optional: Make the grid responsive while maintaining alignment */
-@media screen and (min-width: 1400px) {
+/* Optional: Limit max size on very large screens */
+@media screen and (min-width: 1600px) {
     .portfolio-grid {
-        grid-auto-rows: 250px;
+        max-width: 1400px;
+        margin: 0 auto;
     }
 }
-
-@media screen and (min-width: 1800px) {
-    .portfolio-grid {
-        grid-auto-rows: 300px;
-    }
-}
-
 
 
 /* ===== PORTFOLIO ITEM PAGE ===== */
