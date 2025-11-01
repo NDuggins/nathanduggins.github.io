@@ -52,31 +52,5 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
-
-  // Set grid row height to match column width for perfect squares
-  function setGridRowHeight() {
-    const grid = document.querySelector('.portfolio-grid');
-    if (!grid) return;
-
-    // Calculate column width
-    // Grid has 4 columns, 20px padding on each side, and 10px gaps
-    const gridWidth = grid.clientWidth;
-    const padding = 40; // 20px left + 20px right
-    const gapTotal = 30; // 3 gaps of 10px between 4 columns
-    const columnWidth = (gridWidth - padding - gapTotal) / 4;
-
-    // Set row height to match column width
-    grid.style.gridAutoRows = `${columnWidth}px`;
-  }
-
-  // Set initial row height
-  setGridRowHeight();
-
-  // Update on window resize with debouncing
-  let resizeTimer;
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(setGridRowHeight, 100);
-  });
 });
 </script>
