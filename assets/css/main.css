@@ -172,21 +172,22 @@ h4 {
     grid-column: span 1;
     grid-row: span 1;
     aspect-ratio: 1 / 1;
+    min-height: 200px;
 }
 
 .portfolio-item.wide {
     grid-column: span 2;
-    aspect-ratio: 21 / 10;  /* Accounts for 1 gap between 2 columns */
+    aspect-ratio: 2 / 1;
 }
 
 .portfolio-item.extra-wide {
     grid-column: span 3;
-    aspect-ratio: 16 / 5;  /* Accounts for 2 gaps between 3 columns */
+    aspect-ratio: 3 / 1;
 }
 
 .portfolio-item.tall {
     grid-row: span 2;
-    aspect-ratio: 10 / 21;  /* Accounts for 1 gap between 2 rows */
+    aspect-ratio: 1 / 2;
 }
 
 .portfolio-overlay {
