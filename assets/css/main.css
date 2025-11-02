@@ -162,6 +162,7 @@ h4 {
 .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 1fr;
     gap: 10px;
     padding: 20px;
 }
@@ -171,23 +172,49 @@ h4 {
     overflow: hidden;
     grid-column: span 1;
     grid-row: span 1;
-    aspect-ratio: 1 / 1;
-    min-height: 200px;
+}
+
+/* Use pseudo-element to maintain square aspect ratio for grid cells */
+.portfolio-item::before {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+}
+
+/* Position content absolutely to fill the square */
+.portfolio-item > .portfolio-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .portfolio-item.wide {
     grid-column: span 2;
-    aspect-ratio: 2 / 1;
+}
+
+.portfolio-item.wide::before {
+    padding-bottom: calc(100% / 2); /* Half height for 2-wide items */
 }
 
 .portfolio-item.extra-wide {
     grid-column: span 3;
-    aspect-ratio: 3 / 1;
+}
+
+.portfolio-item.extra-wide::before {
+    padding-bottom: calc(100% / 3); /* One-third height for 3-wide items */
 }
 
 .portfolio-item.tall {
     grid-row: span 2;
-    aspect-ratio: 1 / 2;
+}
+
+.portfolio-item.tall::before {
+    /* For 1-wide, 2-tall: the pseudo creates the first square,
+       and the grid-row: span 2 makes it extend into the second row */
+    padding-bottom: 200%;
 }
 
 .portfolio-overlay {
@@ -215,6 +242,9 @@ h4 {
 }
 
 .portfolio-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -440,6 +470,18 @@ h4 {
         overflow: hidden;
     }
 
+    /* Remove pseudo-element on mobile */
+    .portfolio-item::before {
+        display: none;
+    }
+
+    /* Reset positioning on mobile */
+    .portfolio-item > .portfolio-link {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
     .portfolio-item.wide,
     .portfolio-item.extra-wide,
     .portfolio-item.tall {
@@ -447,6 +489,7 @@ h4 {
     }
 
     .portfolio-thumbnail {
+        position: relative;
         width: 100%;
         height: 100%;
         object-fit: cover;
