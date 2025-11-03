@@ -3,7 +3,7 @@ layout: portfolio_item
 title: Automated Flood Extents using SAR Imagery
 thumbnail: /assets/images/portfolio/SarPosterThumbnail.jpg
 full_image: /assets/images/portfolio/SAR_Poster_final_2_0.png
-short_description:
+short_description: Google Earth Engine (GEE)
 size: wide
 ---
 
