@@ -44,7 +44,7 @@ layout: default
 
   <div class="portfolio-image">
     <img id="zoomable-image"
-         src="{{ page.full_image | default: page.thumbnail }}"
+         src="{{ page.page_image | default: page.full_image | default: page.thumbnail }}"
          alt="{{ page.title }}"
          data-full-image="{{ page.full_image | default: page.thumbnail }}"
          {% if page.storymap_url %}data-storymap-url="{{ page.storymap_url }}"{% endif %}>
