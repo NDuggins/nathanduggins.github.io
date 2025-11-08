@@ -79,6 +79,17 @@ nav a.active {
     border-bottom: 2px solid #f00;
 }
 
+nav a.social-link {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+nav a.social-link:hover {
+    opacity: 1;
+}
+
 /* ===== MAIN CONTENT ===== */
 main {
     background-color: #333;
@@ -606,8 +617,13 @@ h4 {
         padding: 0.5rem 0;
     }
 
-    nav a:not(:last-child) {
+    nav a:not(:last-child):not(.social-link) {
         border-right: 1px solid #555;
+    }
+
+    nav a.social-link {
+        border-right: none;
+        padding: 0.5rem;
     }
 
     .summary-section::after,
