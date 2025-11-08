@@ -444,15 +444,40 @@ h4 {
     background-color: #cc0000;
 }
 
+.sending-message {
+    padding: 30px;
+    background-color: #222;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.sending-message p {
+    color: #ddd;
+    font-size: 18px;
+    margin: 0;
+}
+
 .success-message {
     padding: 30px;
     background-color: #222;
-    border: 1px solid #cc0000;
     border-radius: 4px;
     text-align: center;
 }
 
 .success-message p {
+    color: #ddd;
+    font-size: 18px;
+    margin: 0;
+}
+
+.error-message-box {
+    padding: 30px;
+    background-color: #222;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.error-message-box p {
     color: #ddd;
     font-size: 18px;
     margin: 0;
