@@ -499,6 +499,15 @@ h4 {
     border-color: #ff6b6b;
 }
 
+/* Honeypot spam protection - hidden from humans */
+.honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 /* ===== PORTFOLIO NAVIGATION ARROWS ===== */
 .portfolio-nav {
     position: fixed;
