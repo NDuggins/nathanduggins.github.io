@@ -40,8 +40,16 @@ permalink: /contact/
         <button type="submit" class="submit-btn">Send Message</button>
       </form>
 
+      <div id="sending-message" class="sending-message" style="display: none;">
+        <p>Sending your message...</p>
+      </div>
+
       <div id="success-message" class="success-message" style="display: none;">
         <p>Thank you for your message! I'll get back to you soon.</p>
+      </div>
+
+      <div id="error-message-box" class="error-message-box" style="display: none;">
+        <p>Sorry, there was a problem sending your message. Please try again or email me directly at nathan.duggins@gmail.com</p>
       </div>
     </div>
   </div>
@@ -50,7 +58,9 @@ permalink: /contact/
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('contact-form');
+  const sendingMessage = document.getElementById('sending-message');
   const successMessage = document.getElementById('success-message');
+  const errorMessageBox = document.getElementById('error-message-box');
   const emailInput = document.getElementById('email');
   const emailError = document.getElementById('email-error');
 
@@ -80,13 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Clear error when user starts typing
-  emailInput.addEventListener('input', function() {
-    if (emailError.classList.contains('show')) {
-      showEmailError(false);
-    }
-  });
-
   form.addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -100,27 +103,52 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get form data
     const formData = new FormData(form);
 
-    // Show success message immediately (optimistic UI)
-    form.reset();
+    // Show sending message
     form.style.display = 'none';
-    successMessage.style.display = 'block';
+    sendingMessage.style.display = 'block';
 
-    // Reset after 5 seconds
-    setTimeout(function() {
-      form.style.display = 'block';
-      successMessage.style.display = 'none';
-    }, 5000);
-
-    // Send to Formspree in the background
+    // Send to Formspree and wait for response
     fetch(form.action, {
       method: 'POST',
       body: formData,
       headers: {
         'Accept': 'application/json'
       }
-    }).catch(error => {
-      // Silently handle errors - user already saw success message
-      console.log('Form submission error:', error);
+    })
+    .then(response => {
+      if (response.ok) {
+        // Success - clear form and show success message
+        form.reset();
+        sendingMessage.style.display = 'none';
+        successMessage.style.display = 'block';
+
+        // Reset after 5 seconds
+        setTimeout(function() {
+          form.style.display = 'block';
+          successMessage.style.display = 'none';
+        }, 5000);
+      } else {
+        // Error response from Formspree
+        sendingMessage.style.display = 'none';
+        errorMessageBox.style.display = 'block';
+
+        // Reset after 8 seconds
+        setTimeout(function() {
+          form.style.display = 'block';
+          errorMessageBox.style.display = 'none';
+        }, 8000);
+      }
+    })
+    .catch(error => {
+      // Network error or other failure
+      sendingMessage.style.display = 'none';
+      errorMessageBox.style.display = 'block';
+
+      // Reset after 8 seconds
+      setTimeout(function() {
+        form.style.display = 'block';
+        errorMessageBox.style.display = 'none';
+      }, 8000);
     });
   });
 });
