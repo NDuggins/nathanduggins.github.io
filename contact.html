@@ -35,6 +35,12 @@ permalink: /contact/
           <textarea id="message" name="message" rows="8" required></textarea>
         </div>
 
+        <!-- Honeypot field - hidden from humans, visible to bots -->
+        <div class="honeypot">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
         <input type="hidden" name="_subject" value="New contact form submission from nathanduggins.com">
 
         <button type="submit" class="submit-btn">Send Message</button>
@@ -92,6 +98,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+
+    // Check honeypot - if filled, it's a bot
+    const honeypot = document.getElementById('website');
+    if (honeypot.value) {
+      // Silently reject spam - don't send anything
+      console.log('Spam detected via honeypot');
+      return;
+    }
 
     // Validate email before submitting
     if (!validateEmail(emailInput.value)) {
