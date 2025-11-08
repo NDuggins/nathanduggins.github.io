@@ -428,7 +428,7 @@ h4 {
 }
 
 .submit-btn {
-    background-color: #cc0000;
+    background-color: #aa0000;
     color: white;
     border: none;
     padding: 14px 40px;
@@ -441,19 +441,19 @@ h4 {
 }
 
 .submit-btn:hover {
-    background-color: #aa0000;
+    background-color: #cc0000;
 }
 
 .success-message {
     padding: 30px;
-    background-color: #1a4d1a;
-    border: 1px solid #2d7a2d;
+    background-color: #222;
+    border: 1px solid #cc0000;
     border-radius: 4px;
     text-align: center;
 }
 
 .success-message p {
-    color: #90ee90;
+    color: #ddd;
     font-size: 18px;
     margin: 0;
 }
