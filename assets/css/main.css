@@ -428,7 +428,7 @@ h4 {
 }
 
 .submit-btn {
-    background-color: #f00;
+    background-color: #cc0000;
     color: white;
     border: none;
     padding: 14px 40px;
@@ -441,7 +441,7 @@ h4 {
 }
 
 .submit-btn:hover {
-    background-color: #cc0000;
+    background-color: #aa0000;
 }
 
 .success-message {
@@ -456,6 +456,22 @@ h4 {
     color: #90ee90;
     font-size: 18px;
     margin: 0;
+}
+
+.error-message {
+    color: #ff6b6b;
+    font-size: 13px;
+    margin-top: 5px;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+.form-group input.error,
+.form-group textarea.error {
+    border-color: #ff6b6b;
 }
 
 /* ===== PORTFOLIO NAVIGATION ARROWS ===== */
