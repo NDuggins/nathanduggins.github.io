@@ -344,6 +344,120 @@ h4 {
     text-decoration: none;
 }
 
+/* ===== CONTACT PAGE STYLES ===== */
+.contact-page {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+    position: relative;
+}
+
+/* Red divider line between columns */
+.contact-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background-color: #f00;
+}
+
+.contact-info h1 {
+    font-size: 48px;
+    font-weight: 300;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.contact-info p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.contact-form-wrapper {
+    padding-left: 20px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #222;
+    border: 1px solid #555;
+    color: white;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 14px;
+    border-radius: 2px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #f00;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.submit-btn {
+    background-color: #f00;
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    font-size: 16px;
+    font-family: 'Helvetica', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 2px;
+    font-weight: 400;
+}
+
+.submit-btn:hover {
+    background-color: #cc0000;
+}
+
+.success-message {
+    padding: 30px;
+    background-color: #1a4d1a;
+    border: 1px solid #2d7a2d;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.success-message p {
+    color: #90ee90;
+    font-size: 18px;
+    margin: 0;
+}
+
 /* ===== PORTFOLIO NAVIGATION ARROWS ===== */
 .portfolio-nav {
     position: fixed;
@@ -535,6 +649,32 @@ h4 {
         top: 10px;
         right: 20px;
         font-size: 30px;
+    }
+
+    /* Contact Page Mobile Styles */
+    .contact-page {
+        padding: 20px;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .contact-container::after {
+        display: none;
+    }
+
+    .contact-info h1 {
+        font-size: 36px;
+    }
+
+    .contact-form-wrapper {
+        padding-left: 0;
+    }
+
+    .submit-btn {
+        width: 100%;
     }
 }
 
