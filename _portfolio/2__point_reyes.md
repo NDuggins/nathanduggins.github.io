@@ -12,7 +12,7 @@ storymap_url: https://storymaps.arcgis.com/stories/a2265baddeef4e33829617c9d7542
 
 ## Multispectral Intertidal Ecosystem Mapping – Point Reyes, CA
 
-I collaborated with National Park Service researchers on a multispectral UAV mapping project to document and classify intertidal habitats along the Point Reyes coastline. The work established high-resolution baseline data to support long-term ecological monitoring and climate change studies.
+Multispectral UAV mapping combines aerial imagery across multiple spectral bands to distinguish vegetation types, substrate compositions, and ecological features that appear similar in standard RGB photography. This technique is particularly valuable for coastal ecosystem monitoring where precise species classification and habitat mapping support long-term ecological research and inform conservation management decisions.
 
 - Conducted multispectral UAV surveys across four beach sites during the year's lowest tides, capturing imagery for ecological analysis.
 - Managed full UAV workflow: preflight planning around tidal windows, field operations, and post-processing.
