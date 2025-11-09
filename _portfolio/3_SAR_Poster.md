@@ -7,11 +7,11 @@ short_description: Google Earth Engine (GEE)
 size: wide
 ---
 
-I developed an automated SAR flood mapping workflow to overcome the limitations of traditional methods that require slow manual training data collection. By leveraging radar signals that penetrate cloud cover and implementing unsupervised classification in Google Earth Engine, I created a system that rapidly generates flood maps without human intervention, enabling faster deployment for disaster management when optical imagery is unavailable.
+I advanced automated SAR flood mapping research building on Islam and Meng's 2022 study that tested various SAR band combinations with supervised classification. By stacking their best-performing band combinations and implementing unsupervised classification in Google Earth Engine, I achieved higher accuracy than their supervised methods before even applying the Floodwater Depth Estimation Tool (FwDET), while eliminating the need for manual training data that delays emergency response.
 
-- Developed unsupervised K-means classification workflow in Google Earth Engine using Sentinel-1 SAR data, reducing setup to two user-adjustable parameters for rapid emergency deployment
+- Advanced Islam and Meng's (2022) SAR flood detection research by stacking their best-performing band combinations in an unsupervised K-means workflow, reducing setup to two user-adjustable parameters for rapid emergency deployment
 - Tested workflow on Hurricane Harvey flooding in Harris County, Texas, demonstrating cloud-penetrating SAR capabilities where optical imagery remained obscured during recovery operations
-- Applied SAR polarization band math (VV, VH, derived composites) with adaptive 50m speckle filtering to enhance water-surface detection while preserving hydrological feature boundaries
-- Achieved 89% classification accuracy without human-labeled training data, exceeding supervised methods by ~11 percentage points
+- Applied stacked SAR polarization band math (VV, VH, and derived composites VH+VV, VH/VV) with adaptive 50m speckle filtering to provide classification algorithm with comprehensive spectral information
+- Achieved 89% classification accuracy using unsupervised methods before applying FwDET, exceeding Islam and Meng's best supervised classification results by ~11 percentage points while eliminating manual training data requirements
 - Designed globally scalable architecture enabling rapid application to any flood event or watershed without site-specific retraining
-- In progress: incorporating Floodwater Depth Estimation Tool (FwDET) and refining urban false-positive filtering, with planned open-access deployment for emergency management agencies
+- In progress: incorporating FwDET to further improve accuracy toward ~95% and refining urban false-positive filtering, with planned open-access deployment for emergency management agencies
