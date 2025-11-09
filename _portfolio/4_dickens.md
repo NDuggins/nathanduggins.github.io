@@ -9,7 +9,7 @@ size:
 
 ## Ecological Post-Disaster Reconstruction Assessment - St. Vrain Creek
 
-I partnered with University of Northern Colorado researchers and the city of Longmont to assess post-flood reconstruction along the St. Vrain Creek following the 2013 disaster. The project established high-accuracy geospatial baselines to compare human-centered redevelopment and ecologically focused restoration strategies across the watershed.
+Post-disaster reconstruction assessments use high-resolution geospatial data to document landscape conditions following catastrophic events, establishing baseline datasets that enable researchers to evaluate recovery strategies and guide future planning. These assessments compare different reconstruction approaches—from human-centered infrastructure redevelopment to ecologically focused habitat restoration—providing quantitative evidence for long-term decision-making in disaster-prone watersheds.
 
 - Conducted multispectral UAV surveys over a 2.25-mile stretch of the St. Vrain Creek corridor, including the Dicken's Farm Nature Area and adjacent restoration zones.
 - Managed complete UAV workflow: mission planning, flight operations, data acquisition, and post-processing.
