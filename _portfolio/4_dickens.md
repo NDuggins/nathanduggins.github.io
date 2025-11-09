@@ -4,17 +4,17 @@ title: Post-Flood Reconstruction Assessment
 thumbnail: /assets/images/portfolio/DickensLayout.jpg
 full_image: /assets/images/portfolio/DickensLayout.jpg
 short_description: Longmont, CO
-size: 
+size:
 ---
 
-In 2013, a devastating flood tore through Northern Colorado, wreaking havoc on local ecologies. 
-The area surrounding the St. Vrain Creek, an important waterway running through Longmont, was hit especially hard. 
-Post-flood, the Dickens Farm Nature Area was redesigned for public use, with walkways and easy water access, while other 
-areas focused on ecological restoration. To aid a team from the University of Northern Colorado in assessing the progress 
-and effectiveness of reconstruction efforts in the region, we carefully mapped a 2+ mile stretch of the creek. 
-We used a UAV-mounted multispectral camera, along with a ground-based Trimble unit to collect ground control points and 
-achieved accuracy in the cm range. Our deliverables included high-quality orthophotos, digital elevation models (DEMs), 
-normalized difference vegitation index (NDVI) layers, and point clouds, 
-some of which you are seeing here. These maps contain information crucial for ecologists to gauge current progress and 
-will serve as a baseline for future studies, allowing for comparisons between different sites with their unique 
-reconstruction objectives. 
+## Ecological Post-Disaster Reconstruction Assessment - St. Vrain Creek
+
+I partnered with University of Northern Colorado researchers and the city of Longmont to assess post-flood reconstruction along the St. Vrain Creek following the 2013 disaster. The project established high-accuracy geospatial baselines to compare human-centered redevelopment and ecologically focused restoration strategies across the watershed.
+
+- Conducted multispectral UAV surveys over a 2.25-mile stretch of the St. Vrain Creek corridor, including the Dicken's Farm Nature Area and adjacent restoration zones.
+- Managed complete UAV workflow: mission planning, flight operations, data acquisition, and post-processing.
+- Used a Trimble R10 GNSS to establish centimeter-accurate ground control for long-term monitoring precision.
+- Produced high-resolution orthophotos, digital elevation models (DEMs), NDVI layers, and classified point clouds for quantitative habitat and landform analysis using Agisoft Metashape and CloudCompare.
+- Collaborated with multiple stakeholders to ensure the mapping products met both ecological research goals and municipal planning needs.
+- Delivered datasets now serving as baseline monitoring data for evaluating ecological recovery and reconstruction outcomes.
+- Provided a comparative framework enabling researchers to measure long-term ecological success and guide future riparian restoration and disaster-recovery planning.
