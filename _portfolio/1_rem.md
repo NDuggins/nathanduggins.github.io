@@ -7,12 +7,13 @@ short_description: Waimakairiri River, New Zealand
 size: extra-wide
 ---
 
-I created a Relative Elevation Map (REM) that transforms standard elevation data into a surface showing height relative to the active, center river channel. By setting the river level to zero and displaying surrounding terrain as positive values above water, I revealed subtle floodplain features like paleochannels, levees, and terraces that are difficult to interpret from conventional topographic maps, providing essential data for river restoration planning and floodplain management.
+I created a Relative Elevation Map (REM) of the Waimakairiri River in New Zealand to reveal the hidden history of this dynamic braided river system. By transforming standard elevation data to show height relative to the active river channel—setting the water level to zero and displaying surrounding terrain as positive values above—I could visualize features that are nearly invisible in conventional topographic maps: ancient channels where the river once flowed, natural levees built by floods, and terraces marking different eras of the landscape. This work provides essential insights for understanding floodplain evolution and guiding river restoration decisions.
 
 - Processed bare-earth DEMs and densified river centerlines to 10-30m vertex spacing, sampling elevations to create high-density water surface elevation profiles
 - Applied IDW interpolation to generate smooth water surface models, then subtracted from DEMs using raster calculator to produce relative elevation surfaces
 - Masked outputs to floodplain extents and validated against aerial imagery confirming accurate representation of bars, levees, and paleochannels
 - Applied cartographic styling with graduated color ramps and hillshade underlays enhancing visualization of subtle geomorphic features
+- Developed large-format cartographic presentation combining technical rigor with visual design to communicate floodplain geomorphology to both scientific and public audiences
 
 Winner of the People's Choice Award at the 2024 GISCO conference.
 
