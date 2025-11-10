@@ -7,7 +7,7 @@ short_description: Waimakairiri River, New Zealand
 size: extra-wide
 ---
 
-I created a Relative Elevation Map (REM) of the Waimakairiri River in New Zealand to reveal the hidden history of this dynamic braided river system. By transforming standard elevation data to show height relative to the active river channel—setting the water level to zero and displaying surrounding terrain as positive values above—I could visualize features that are nearly invisible in conventional topographic maps: ancient channels where the river once flowed, natural levees built by floods, and terraces marking different eras of the landscape. This work provides essential insights for understanding floodplain evolution and guiding river restoration decisions.
+I created a Relative Elevation Map (REM) of the Waimakairiri River in New Zealand to visualize floodplain features that are difficult to detect in standard topographic maps. By transforming elevation data to show height relative to the active river channel, I revealed paleochannels, natural levees, and terraces that document the river's historical evolution and inform current restoration planning.
 
 - Processed bare-earth DEMs and densified river centerlines to 10-30m vertex spacing, sampling elevations to create high-density water surface elevation profiles
 - Applied IDW interpolation to generate smooth water surface models, then subtracted from DEMs using raster calculator to produce relative elevation surfaces
