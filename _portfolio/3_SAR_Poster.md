@@ -7,7 +7,7 @@ short_description: Google Earth Engine (GEE)
 size: wide
 ---
 
-I advanced automated SAR flood mapping research building on Islam and Meng's 2022 study that tested various SAR band combinations with supervised classification. By stacking their best-performing band combinations and implementing unsupervised classification in Google Earth Engine, I achieved higher accuracy than their supervised methods before even applying the Floodwater Depth Estimation Tool (FwDET), while eliminating the need for manual training data that delays emergency response.
+I advanced automated SAR flood mapping research by building on Islam and Meng's 2022 study of band combinations and supervised classification. Working in Google Earth Engine, I developed an unsupervised approach that eliminated manual training data requirements while achieving higher accuracy than traditional supervised methods, enabling faster deployment for disaster response.
 
 - Applied stacked SAR polarization band math (VV, VH, and derived composites VH+VV, VH/VV) with adaptive 50m speckle filtering to provide classification algorithm with comprehensive spectral information
 - Tested workflow on Hurricane Harvey flooding in Harris County, Texas, demonstrating cloud-penetrating SAR capabilities where optical imagery remained obscured during recovery operations

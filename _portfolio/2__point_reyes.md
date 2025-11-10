@@ -10,7 +10,7 @@ size: tall
 storymap_url: https://storymaps.arcgis.com/stories/a2265baddeef4e33829617c9d7542329
 ---
 
-I used multispectral UAV mapping to capture aerial imagery across multiple spectral bands, distinguishing vegetation types and substrate compositions that appear nearly identical in standard RGB photography. This approach provided the National Park Service with precise species classification and habitat mapping supporting their long-term ecological monitoring and conservation management efforts along the Point Reyes coastline.
+I collaborated with the National Park Service to map intertidal habitats along the Point Reyes coastline using multispectral UAV technology. This approach distinguished vegetation types and substrate compositions that appear nearly identical in standard photography, providing precise species classification and habitat mapping to support long-term ecological monitoring and conservation management.
 
 - Conducted multispectral UAV surveys across four beach sites during the year's lowest tides, capturing imagery for ecological analysis.
 - Managed full UAV workflow: preflight planning around tidal windows, field operations, and post-processing.
