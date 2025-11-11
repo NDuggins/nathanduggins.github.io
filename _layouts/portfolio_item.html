@@ -37,8 +37,9 @@ layout: default
 {% endif %}
     
 <div class="portfolio-item-page">
-  <div class="portfolio-title">
+  <div class="portfolio-description">
     <h1>{{ page.title }}</h1>
+    {{ content }}
   </div>
 
   <div class="portfolio-image">
@@ -57,10 +58,6 @@ layout: default
       {% endif %}
     </div>
   </div>
-
-  <div class="portfolio-description">
-    {{ content }}
-  </div>
 </div>
 
 <!-- Popup structure for zoom functionality -->
@@ -76,11 +73,6 @@ layout: default
     gap: 40px;
     padding: 40px;
     margin: 0 auto;
-    flex-wrap: wrap;
-  }
-
-  .portfolio-title {
-    flex: 1 1 100%;
   }
 
   .portfolio-description {
@@ -145,15 +137,18 @@ layout: default
   /* Mobile responsive */
   @media (max-width: 768px) {
     .portfolio-item-page {
-      flex-direction: column;
-      align-items: stretch;
+      display: grid;
+      grid-template-rows: auto auto auto;
       padding: 20px;
       gap: 0;
     }
 
-    .portfolio-title {
+    .portfolio-description {
+      display: contents;
+    }
+
+    .portfolio-description h1 {
       order: 1;
-      width: 100%;
       margin-bottom: 20px;
     }
 
@@ -163,9 +158,8 @@ layout: default
       margin-bottom: 15px;
     }
 
-    .portfolio-description {
+    .portfolio-description > *:not(h1) {
       order: 3;
-      width: 100%;
     }
 
     .portfolio-image img {
