@@ -632,7 +632,7 @@ h4 {
         display: flex;
         flex-direction: column;
         position: relative;
-        padding-bottom: 30px;
+        padding-bottom: 15px;
         border-bottom: 2px solid #f00;
     }
 
@@ -681,8 +681,16 @@ h4 {
         position: static;
         opacity: 1;
         background: transparent;
-        padding: 15px 0 0 0;
+        padding: 10px 0 0 0;
         pointer-events: auto;
+    }
+
+    .portfolio-overlay h3 {
+        margin: 0 0 5px 0;
+    }
+
+    .portfolio-overlay p {
+        margin: 0;
     }
 
     .portfolio-item:hover .portfolio-thumbnail {
