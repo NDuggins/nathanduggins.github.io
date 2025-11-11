@@ -37,9 +37,8 @@ layout: default
 {% endif %}
     
 <div class="portfolio-item-page">
-  <div class="portfolio-description">
+  <div class="portfolio-title">
     <h1>{{ page.title }}</h1>
-    {{ content }}
   </div>
 
   <div class="portfolio-image">
@@ -48,7 +47,7 @@ layout: default
          alt="{{ page.title }}"
          data-full-image="{{ page.full_image | default: page.thumbnail }}"
          {% if page.storymap_url %}data-storymap-url="{{ page.storymap_url }}"{% endif %}>
-    
+
     <!-- Instructional text -->
     <div class="image-instruction">
       {% if page.storymap_url %}
@@ -57,6 +56,10 @@ layout: default
         (Click to view full-resolution image)
       {% endif %}
     </div>
+  </div>
+
+  <div class="portfolio-description">
+    {{ content }}
   </div>
 </div>
 
@@ -73,6 +76,11 @@ layout: default
     gap: 40px;
     padding: 40px;
     margin: 0 auto;
+  }
+
+  /* Desktop: group title and description on the left */
+  .portfolio-title {
+    flex: 1;
   }
 
   .portfolio-description {
@@ -113,12 +121,12 @@ layout: default
     overflow: hidden;
     background-color: rgba(0,0,0,0.9);
   }
-  
+
   #popup-canvas {
     display: block;
     margin: auto;
   }
-  
+
   .close-btn {
     position: absolute;
     top: 15px;
@@ -129,9 +137,29 @@ layout: default
     cursor: pointer;
     z-index: 10000;
   }
-  
+
   .close-btn:hover {
     color: #bbb;
+  }
+
+  /* Desktop only: make title and description appear as one column */
+  @media (min-width: 769px) {
+    .portfolio-item-page {
+      flex-wrap: wrap;
+    }
+
+    .portfolio-title {
+      flex: 1 1 45%;
+    }
+
+    .portfolio-image {
+      flex: 1 1 45%;
+    }
+
+    .portfolio-description {
+      flex: 1 1 45%;
+      order: 3;
+    }
   }
 
   /* Mobile responsive */
@@ -142,15 +170,21 @@ layout: default
       padding: 20px;
     }
 
-    .portfolio-description {
-      order: 2;
-      width: 100%;
-    }
-
-    .portfolio-image {
+    .portfolio-title {
       order: 1;
       width: 100%;
       margin-bottom: 20px;
+    }
+
+    .portfolio-image {
+      order: 2;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .portfolio-description {
+      order: 3;
+      width: 100%;
     }
 
     .portfolio-image img {
